@@ -8,7 +8,6 @@ if (!isset($_SESSION['usuario'])) {
 }
 
 include_once '../includes/db.php';         // Conexión a la base de datos
-include_once '../includes/functions.php';  // Funciones reutilizables
 include '../includes/header.php';          // Cabecera común
 
 // Obtener el ID del usuario logueado
