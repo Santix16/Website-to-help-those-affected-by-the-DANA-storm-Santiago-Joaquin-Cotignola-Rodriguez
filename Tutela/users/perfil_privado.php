@@ -2,7 +2,7 @@
 session_start();
 
 // Si el usuario NO ha iniciado sesión, mostramos un mensaje o redirigimos
-if (!isset($_SESSION['usuario']) || !isset($_SESSION['usuario']['id'])) {
+if (!isset($_SESSION['usuario'])) {
     echo '
     <!DOCTYPE html>
     <html lang="es">
