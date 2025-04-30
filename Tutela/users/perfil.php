@@ -71,6 +71,7 @@ if (!isset($_SESSION['usuario'])) {
                             <li>Producto 2</li>
                             <li>Producto 3</li>
                         </ul>
+                        <p><a href="perfil_privado.php" class="button special big">Ir a mi perfil privado</a></p>
                     </div>
                 </div>
             </div>
@@ -102,6 +103,12 @@ if (!isset($_SESSION['usuario'])) {
 
 </body>
 </html>
+
+
+
+
+
+
 
 
 
