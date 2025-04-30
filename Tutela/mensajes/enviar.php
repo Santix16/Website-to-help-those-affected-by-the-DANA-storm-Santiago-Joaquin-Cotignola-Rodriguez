@@ -8,7 +8,6 @@ if (!isset($_SESSION['usuario'])) {
 }
 
 include_once '../includes/db.php';
-include_once '../includes/functions.php';
 include '../includes/header.php';
 
 // Procesar el formulario al enviar
