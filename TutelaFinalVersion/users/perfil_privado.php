@@ -47,9 +47,17 @@ if (!isset($usuario['valoracion']) || $usuario['valoracion'] < 1 || $usuario['va
     <link rel="stylesheet" href="../assets/css/main.css">
 </head>
 <body class="landing">
-
-    <!-- Aquí se incluye el header desde el archivo includes/header.php -->
-    <?php include('../includes/header.php'); ?>
+    <header id="header" class="alt">
+        <h1><strong><a href="../index.php">TELE-DANA</a></strong> - Perfil Privado</h1>
+        <nav id="nav">
+            <ul>
+                <li><a href="../index.php">Inicio</a></li>
+                <li><a href="../tienda.php">Tienda</a></li>
+                <li><a href="perfil_privado.php">Perfil</a></li>
+                <li><a href="../logout.php">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
 
     <section id="banner">
         <h2>Perfil del Usuario</h2>
