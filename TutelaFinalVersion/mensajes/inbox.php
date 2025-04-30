@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Verificar que el usuario esté autenticado (ej. como administrador)
+// Verificar que el usuario esté autenticado
 if (!isset($_SESSION['usuario'])) {
     header("Location: ../login.php");
     exit();
@@ -50,6 +50,9 @@ $mensajes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <!-- Contenido -->
 <div class="container" style="padding: 2em;">
     <h1>Bandeja de Entrada</h1>
+
+    <!-- Enlace para enviar un nuevo mensaje -->
+    <p><a href="enviar.php" class="btn">Enviar Nuevo Mensaje</a></p>
 
     <?php if (count($mensajes) > 0): ?>
         <table border="1" cellpadding="10" cellspacing="0">
