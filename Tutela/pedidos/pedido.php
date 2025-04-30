@@ -38,7 +38,7 @@ include '../includes/db.php';
 <section id="one" class="wrapper style1">
     <div class="container">
 
-        <?php if (!isset($_SESSION['usuario']) || !isset($_SESSION['usuario']['id'])): ?>
+        <?php if (!isset($_SESSION['usuario'])): ?>
             <p style="text-align:center; font-size: 1.2em; color: #c00;">
                 Debes <a href="../login.html">iniciar sesión</a> para ver tus pedidos.
             </p>
