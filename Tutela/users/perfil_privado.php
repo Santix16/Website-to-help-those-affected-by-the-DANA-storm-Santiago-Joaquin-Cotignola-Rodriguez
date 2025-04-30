@@ -102,7 +102,7 @@ $usuario = $_SESSION['usuario']; // Puedes usar estos datos para autocompletar e
     </footer>
 
     <div class="copyright">
-        &copy; 2025 TELE-DANA. Todos los derechos reservados.
+        &copy; 2025 Tutela La DANA. Todos los derechos reservados.
     </div>
 </body>
 </html>

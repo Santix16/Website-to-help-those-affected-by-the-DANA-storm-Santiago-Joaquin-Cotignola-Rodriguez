@@ -8,19 +8,19 @@
 </head>
 <body class="landing">
 
-    <!-- Header -->
-    <header id="header" class="alt">
-        <h1><strong><a href="../index.html">Spatial</a></strong> by Templated</h1>
-        <nav id="nav">
-            <ul>
-                <li><a href="../index.html">Home</a></li>
-                <li><a href="../generic.html">Generic</a></li>
-                <li><a href="../elements.html">Elements</a></li>
-                <li><a href="contacto.php">Contacto</a></li>
-                <li><a href="../pedidos/historial.php">Pedidos</a></li>
-            </ul>
-        </nav>
-    </header>
+   <!-- Header -->
+<header id="header" class="alt">
+  <h1><strong><a href="index.html">Tutela La DANA</a></strong></h1>
+  <nav id="nav">
+    <ul>
+      <li><a href="../index.php">Inicio</a></li>
+      <li><a href="../servicios.php">Servicios</a></li>
+      <li><a href="../quienes_somos.html">Quiénes Somos</a></li>
+      <li><a href="../contacto/contacto.php">Contacto</a></li>
+      <li><a href="../login.html">Login</a></li>
+    </ul>
+  </nav>
+</header>
     <a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>
 
     <!-- Banner -->
@@ -68,26 +68,21 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer id="footer">
-        <div class="container">
-            <ul class="icons">
-                <li><a href="#" class="icon fa-facebook"></a></li>
-                <li><a href="#" class="icon fa-twitter"></a></li>
-                <li><a href="#" class="icon fa-instagram"></a></li>
-            </ul>
-        </div>
-    </footer>
-
-    <div class="copyright">
-        Site made with: <a href="https://templated.co/">Templated</a>
+    <div class="container">
+        <ul class="icons">
+            <li><a href="#" class="icon fa-facebook"></a></li>
+            <li><a href="#" class="icon fa-twitter"></a></li>
+            <li><a href="#" class="icon fa-instagram"></a></li>
+        </ul>
     </div>
-
-    <!-- Scripts -->
-    <script src="../assets/js/jquery.min.js"></script>
-    <script src="../assets/js/skel.min.js"></script>
-    <script src="../assets/js/util.js"></script>
-    <script src="../assets/js/main.js"></script>
-
+</footer>
+<div class="copyright">
+    © <?php echo date('Y'); ?> Tutela La Dana | Sitio creado con solidaridad
+</div>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/skel.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
 </body>
 </html>

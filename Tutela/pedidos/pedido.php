@@ -6,7 +6,7 @@ include '../includes/db.php';
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>Detalle del Pedido - TELE-DANA</title>
+    <title>Detalle del Pedido - Tutela la DANA</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="../assets/css/main.css" />
@@ -15,15 +15,16 @@ include '../includes/db.php';
 
 <!-- Header -->
 <header id="header" class="alt">
-    <h1><strong><a href="../index.html">TELE-DANA</a></strong></h1>
-    <nav id="nav">
-        <ul>
-            <li><a href="../index.html">Inicio</a></li>
-            <li><a href="../quienes_somos.html">Quiénes Somos</a></li>
-            <li><a href="../contacto/contacto.php">Contacto</a></li>
-            <li><a href="../login.html">Login</a></li>
-        </ul>
-    </nav>
+  <h1><strong><a href="index.html">Tutela La DANA</a></strong></h1>
+  <nav id="nav">
+    <ul>
+      <li><a href="index.php">Inicio</a></li>
+      <li><a href="servicios.php">Servicios</a></li>
+      <li><a href="quienes_somos.html">Quiénes Somos</a></li>
+      <li><a href="contacto/contacto.php">Contacto</a></li>
+      <li><a href="login.html">Login</a></li>
+    </ul>
+  </nav>
 </header>
 <a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>
 
@@ -93,7 +94,7 @@ include '../includes/db.php';
 </footer>
 
 <div class="copyright">
-    © 2025 TELE-DANA. Todos los derechos reservados. |
+    © 2025 Tutela la DANA. Todos los derechos reservados. |
     <a href="../legal/legal.html">Términos de Uso</a> |
     <a href="../legal/privacidad.html">Protección de Datos</a>
 </div>

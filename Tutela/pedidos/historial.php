@@ -8,7 +8,7 @@ include_once '../includes/functions.php';
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Historial de Pedidos - TELE-DANA</title>
+    <title>Historial de Pedidos - Tutela la DANA</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="../assets/css/main.css" />
 </head>
@@ -16,15 +16,16 @@ include_once '../includes/functions.php';
 
 <!-- Header -->
 <header id="header" class="alt">
-    <h1><strong><a href="../index.html">TELE-DANA</a></strong></h1>
-    <nav id="nav">
-        <ul>
-            <li><a href="../index.html">Inicio</a></li>
-            <li><a href="../quienes_somos.html">Quiénes Somos</a></li>
-            <li><a href="../contacto/contacto.php">Contacto</a></li>
-            <li><a href="../login.html">Login</a></li>
-        </ul>
-    </nav>
+  <h1><strong><a href="index.html">Tutela La DANA</a></strong></h1>
+  <nav id="nav">
+    <ul>
+      <li><a href="index.php">Inicio</a></li>
+      <li><a href="servicios.php">Servicios</a></li>
+      <li><a href="quienes_somos.html">Quiénes Somos</a></li>
+      <li><a href="contacto/contacto.php">Contacto</a></li>
+      <li><a href="login.html">Login</a></li>
+    </ul>
+  </nav>
 </header>
 <a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>
 
@@ -47,7 +48,7 @@ include_once '../includes/functions.php';
 
     <section id="banner">
         <h2>Historial de Pedidos</h2>
-        <p>Consulta tus pedidos realizados en TELE-DANA.</p>
+        <p>Consulta tus pedidos realizados en Tutela La DANA.</p>
     </section>
 
     <section id="one" class="wrapper style1">
@@ -86,7 +87,7 @@ include_once '../includes/functions.php';
 
                 <ul class="actions" style="margin-top: 20px;">
                     <li><a href="pedido.php" class="button special">Ver el estado de mi pedido actual</a></li>
-                    <li><a href="/TELEDANA/productos/index.php" class="button">Realizar un Nuevo Pedido</a></li>
+                    <li><a href="/Tutela/servicios.php" class="button">Realizar un Nuevo Pedido</a></li>
                 </ul>
             </div>
         </div>

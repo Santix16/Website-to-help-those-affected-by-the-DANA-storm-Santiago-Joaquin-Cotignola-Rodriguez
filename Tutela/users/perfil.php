@@ -102,7 +102,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['usuario']['id'])) {
     </footer>
 
     <div class="copyright">
-        © 2025 TELE-DANA. Todos los derechos reservados. |
+        © 2025 Tutela La DANA. Todos los derechos reservados. |
         <a href="legal/legal.html">Términos de Uso</a> |
         <a href="legal/privacidad.html">Protección de Datos</a>
     </div>
