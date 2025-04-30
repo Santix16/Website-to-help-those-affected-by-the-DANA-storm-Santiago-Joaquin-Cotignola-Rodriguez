@@ -2,7 +2,6 @@
 // enviar_pedido.php
 session_start();
 include_once '../includes/db.php';
-include_once '../includes/functions.php';
 
 // Verificar que se haya recibido el ID del pedido mediante GET
 if (!isset($_GET['id']) || empty($_GET['id'])) {
