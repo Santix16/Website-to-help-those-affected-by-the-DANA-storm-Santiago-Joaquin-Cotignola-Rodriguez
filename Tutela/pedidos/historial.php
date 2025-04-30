@@ -1,7 +1,7 @@
 <?php
 session_start();
 include_once '../includes/db.php';
-include_once '../includes/functions.php';
+include_once '../includes/header.php';
 ?>
 
 <!DOCTYPE HTML>
@@ -14,19 +14,7 @@ include_once '../includes/functions.php';
 </head>
 <body class="landing">
 
-<!-- Header -->
-<header id="header" class="alt">
-  <h1><strong><a href="index.html">Tutela La DANA</a></strong></h1>
-  <nav id="nav">
-    <ul>
-      <li><a href="index.php">Inicio</a></li>
-      <li><a href="servicios.php">Servicios</a></li>
-      <li><a href="quienes_somos.html">Quiénes Somos</a></li>
-      <li><a href="contacto/contacto.php">Contacto</a></li>
-      <li><a href="login.html">Login</a></li>
-    </ul>
-  </nav>
-</header>
+
 <a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>
 
 <?php if (!isset($_SESSION['usuario'])): ?>
@@ -95,15 +83,7 @@ include_once '../includes/functions.php';
 <?php endif; ?>
 
 <!-- Footer -->
-<footer id="footer">
-    <div class="container">
-        <ul class="icons">
-            <li><a href="#" class="icon fa-facebook" aria-label="Facebook"></a></li>
-            <li><a href="#" class="icon fa-twitter" aria-label="Twitter"></a></li>
-            <li><a href="#" class="icon fa-instagram" aria-label="Instagram"></a></li>
-        </ul>
-    </div>
-</footer>
+<?php include("includes/footer.php"); ?>
 
 <div class="copyright">
     © 2025 TELE-DANA. Todos los derechos reservados. |
