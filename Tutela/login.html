@@ -33,6 +33,9 @@
   <div class="container" style="max-width: 600px;">
     <header class="major special">
       <h2>Iniciar Sesión</h2>
+      <?php if (isset($_GET['error'])): ?>
+  <p style="color: red; text-align: center;">Correo o contraseña incorrectos.</p>
+<?php endif; ?>
       <p>Accede a tu cuenta de Tutela La DANA</p>
     </header>
 
