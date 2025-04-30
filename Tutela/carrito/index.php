@@ -1,7 +1,6 @@
 <?php
 session_start();
 include_once '../includes/db.php';
-include_once '../includes/functions.php';
 
 // Verificar si existe el carrito en la sesión, si no, inicializarlo
 if (!isset($_SESSION['carrito'])) {
@@ -38,7 +37,7 @@ if (!isset($_SESSION['carrito'])) {
 <!-- Banner -->
 <section id="banner">
 
-    <?php if (!isset($_SESSION['usuario']) || !isset($_SESSION['usuario']['id'])): ?>
+    <?php if (!isset($_SESSION['usuario'])): ?>
         <!-- Si el usuario NO ha iniciado sesión -->
         <section id="banner">
             <h2>Acceso Restringido</h2>
