@@ -23,6 +23,7 @@ if (session_status() == PHP_SESSION_NONE) session_start();
       <li><a href="../carrito/index.php">Carrito</a></li>  
       <li><a href="../users/perfil.php">Usuario</a></li>
       <li><a href="../mensajes/inbox.php">Mensaje</a></li>
+      <li><a href="../pedidos/historial.php">Pedidos</a></li>
       <?php if (isset($_SESSION['usuario'])): ?>
         <li><a href="../logout.php">Cerrar sesión</a></li>
       <?php else: ?>
