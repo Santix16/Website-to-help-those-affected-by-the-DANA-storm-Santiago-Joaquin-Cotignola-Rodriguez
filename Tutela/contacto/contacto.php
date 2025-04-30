@@ -27,7 +27,7 @@ if (session_status() == PHP_SESSION_NONE) session_start();
     <div class="container 75%">
         <div class="row 200%">
             <div class="12u">
-                <form method="post" action="contacto.php">
+                <form method="post" action="">
                     <div class="row uniform 50%">
                         <div class="6u 12u$(xsmall)">
                             <input type="text" name="name" id="name" placeholder="Nombre" required />
@@ -52,6 +52,7 @@ if (session_status() == PHP_SESSION_NONE) session_start();
                     $email = htmlspecialchars($_POST["email"]);
                     $message = htmlspecialchars($_POST["message"]);
 
+                    // Aquí puedes enviar un correo si quieres con mail()
                     echo "<p>Gracias, <strong>$name</strong>. Hemos recibido tu mensaje.</p>";
                 }
                 ?>
