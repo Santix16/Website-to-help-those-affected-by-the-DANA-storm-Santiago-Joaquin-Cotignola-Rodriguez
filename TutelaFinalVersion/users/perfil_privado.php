@@ -10,7 +10,6 @@ if (!isset($_SESSION['usuario'])) {
         <meta charset="UTF-8">
         <title>Acceso restringido</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- Asegúrate de que la ruta del CSS sea correcta -->
         <link rel="stylesheet" href="../assets/css/main.css">
     </head>
     <body class="landing">
@@ -27,6 +26,16 @@ if (!isset($_SESSION['usuario'])) {
 
 // Si el usuario está logueado, podemos acceder a su información
 $usuario = $_SESSION['usuario']; // Puedes usar estos datos para autocompletar el formulario si lo deseas
+
+// Asegúrate de que 'productos' es un arreglo
+if (!isset($usuario['productos']) || !is_array($usuario['productos'])) {
+    $usuario['productos'] = []; // Inicializamos como un arreglo vacío si no existe
+}
+
+// Si la valoración no está configurada correctamente, la establecemos por defecto en 0 (o cualquier otro valor predeterminado)
+if (!isset($usuario['valoracion']) || $usuario['valoracion'] < 1 || $usuario['valoracion'] > 5) {
+    $usuario['valoracion'] = 0; // Valor predeterminado
+}
 ?>
 
 <!DOCTYPE html>
@@ -35,37 +44,32 @@ $usuario = $_SESSION['usuario']; // Puedes usar estos datos para autocompletar e
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil Privado</title>
-    <!-- Asegúrate de que la ruta del CSS sea correcta -->
     <link rel="stylesheet" href="../assets/css/main.css">
 </head>
 <body class="landing">
-<header id="header" class="alt">
-  <h1><strong><a href="../index.php">Tutela La DANA</a></strong></h1>
-  <nav id="nav">
-    <ul>
-      <li><a href="../index.php">Inicio</a></li>
-      <li><a href="../servicios.php">Servicios</a></li>
-      <li><a href="../quienes_somos.html">Quiénes Somos</a></li>
-      <li><a href="../contacto/contacto.php">Contacto</a></li>
-      <li><a href="../carrito/index.php">Carrito</a></li>
-      <li><a href="perfil.php">Usuario</a></li> <!-- Ya estás en users/ -->
-      <li><a href="../mensajes/inbox.php">Mensaje</a></li>
-      <li><a href="../pedidos/historial.php">Pedidos</a></li>
-      <?php if (isset($_SESSION['usuario'])): ?>
-        <li><a href="../logout.php">Cerrar sesión</a></li>
-      <?php else: ?>
-        <li><a href="../login.html">Login</a></li>
-      <?php endif; ?>
-    </ul>
-  </nav>
-</header>
+    <header id="header" class="alt">
+        <h1><strong><a href="../index.php">TELE-DANA</a></strong> - Perfil Privado</h1>
+        <nav id="nav">
+            <ul>
+                <li><a href="../index.php">Inicio</a></li>
+                <li><a href="../tienda.php">Tienda</a></li>
+                <li><a href="perfil_privado.php">Perfil</a></li>
+                <li><a href="../logout.php">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
 
-
-    <!-- Main Content -->
     <section id="banner">
         <h2>Perfil del Usuario</h2>
-        <p>En esta sección puedes actualizar tus datos personales.</p>
+        <p>En esta sección puedes actualizar tus datos personales, valoración y productos.</p>
     </section>
+
+    <!-- Mensaje de actualización -->
+    <?php if (isset($_GET['actualizado']) && $_GET['actualizado'] == 'true'): ?>
+        <div class="alerta-exito">
+            <p>¡Datos actualizados con éxito!</p>
+        </div>
+    <?php endif; ?>
 
     <section id="main-content" class="wrapper style1">
         <div class="container">
@@ -86,6 +90,29 @@ $usuario = $_SESSION['usuario']; // Puedes usar estos datos para autocompletar e
                         <input type="text" id="telefono" name="telefono" value="<?php echo htmlspecialchars($usuario['telefono']); ?>" required>
                     </div>
                     <div class="6u$ 12u$(medium)">
+                        <label for="sobre_mi">Sobre mí:</label>
+                        <textarea id="sobre_mi" name="sobre_mi" required><?php echo htmlspecialchars($usuario['sobre_mi']); ?></textarea>
+                    </div>
+                </div>
+
+                <!-- Nueva sección para la valoración -->
+                <div class="row 200%">
+                    <div class="6u 12u$(medium)">
+                        <label for="valoracion">Valoración:</label>
+                        <input type="number" id="valoracion" name="valoracion" value="<?php echo htmlspecialchars($usuario['valoracion']); ?>" min="1" max="5" step="0.1" required>
+                    </div>
+                </div>
+
+                <!-- Nueva sección para los productos -->
+                <div class="row 200%">
+                    <div class="12u$">
+                        <label for="productos">Productos en venta (separados por comas):</label>
+                        <input type="text" id="productos" name="productos" value="<?php echo htmlspecialchars(implode(", ", $usuario['productos'])); ?>" required>
+                    </div>
+                </div>
+
+                <div class="row 200%">
+                    <div class="6u 12u$(medium)">
                         <label for="password">Nueva Contraseña:</label>
                         <input type="password" id="password" name="password">
                     </div>
@@ -96,10 +123,10 @@ $usuario = $_SESSION['usuario']; // Puedes usar estos datos para autocompletar e
                     </div>
                 </div>
             </form>
+            <p><a href="perfil.php" class="button special big">Volver a mi perfil</a></p>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer id="footer">
         <div class="container">
             <ul class="icons">
