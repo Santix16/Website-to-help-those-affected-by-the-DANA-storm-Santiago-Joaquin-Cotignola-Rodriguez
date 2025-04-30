@@ -28,7 +28,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['usuario']['id'])) {
             <ul>
                 <li><a href="../../index.php">Inicio</a></li>
                 <li><a href="../../tienda.php">Tienda</a></li>
-                <li><a href="../../pedidos/historial.php">Pedidos</a></li>
+                <li><a href="../pedidos/historial.php">Pedidos</a></li>
                 <li><a href="../../carrito/index.php">Carrito</a></li>
                 <li><a href="../../perfil.php">Perfil</a></li>
                 <li><a href="../../logout.php">Cerrar Sesión</a></li>
