@@ -21,27 +21,7 @@ if (!isset($_SESSION['usuario'])) {
 </head>
 <body class="landing">
 
-<header id="header" class="alt">
-  <h1><strong><a href="../index.php">Tutela La DANA</a></strong></h1>
-  <nav id="nav">
-    <ul>
-      <li><a href="../index.php">Inicio</a></li>
-      <li><a href="../servicios.php">Servicios</a></li>
-      <li><a href="../quienes_somos.html">Quiénes Somos</a></li>
-      <li><a href="../contacto/contacto.php">Contacto</a></li>
-      <li><a href="../carrito/index.php">Carrito</a></li>
-      <li><a href="perfil.php">Usuario</a></li> <!-- Ya estás en users/ -->
-      <li><a href="../mensajes/inbox.php">Mensaje</a></li>
-      <li><a href="../pedidos/historial.php">Pedidos</a></li>
-      <?php if (isset($_SESSION['usuario'])): ?>
-        <li><a href="../logout.php">Cerrar sesión</a></li>
-      <?php else: ?>
-        <li><a href="../login.html">Login</a></li>
-      <?php endif; ?>
-    </ul>
-  </nav>
-</header>
-
+    <?php include("../includes/header.php"); ?>
 
     <!-- Banner -->
     <section id="banner">
@@ -91,6 +71,7 @@ if (!isset($_SESSION['usuario'])) {
                             <li>Producto 2</li>
                             <li>Producto 3</li>
                         </ul>
+                        <p><a href="perfil_privado.php" class="button special big">Ir a mi perfil privado</a></p>
                     </div>
                 </div>
             </div>
