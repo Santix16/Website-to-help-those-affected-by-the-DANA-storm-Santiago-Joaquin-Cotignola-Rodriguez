@@ -1,7 +1,6 @@
 <?php
 session_start();
 include_once '../includes/db.php';
-include_once '../includes/functions.php';
 
 // Verificar que el usuario esté autenticado
 if (!isset($_SESSION['usuario'])) {
