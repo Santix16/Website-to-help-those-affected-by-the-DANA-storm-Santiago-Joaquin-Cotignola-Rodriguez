@@ -2,7 +2,7 @@
 session_start();
 
 // Verificar si el usuario está logueado
-if (!isset($_SESSION['usuario']) || !isset($_SESSION['usuario']['id'])) {
+if (!isset($_SESSION['usuario'])) {
     // Si el usuario no está logueado, mostrar el mensaje
     $mostrarMensaje = true;
 } else {
