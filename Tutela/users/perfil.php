@@ -26,12 +26,12 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['usuario']['id'])) {
         <h1><strong><a href="index.php">TELE-DANA</a></strong></h1>
         <nav id="nav">
             <ul>
-                <li><a href="../index.php">Inicio</a></li>
-                <li><a href="../tienda.php">Tienda</a></li>
-                <li><a href="../pedidos/historial.php">Pedidos</a></li>
-                <li><a href="../carrito/index.php">Carrito</a></li>
-                <li><a href="../perfil.php">Perfil</a></li>
-                <li><a href="../logout.php">Cerrar Sesión</a></li>
+                <li><a href="../../index.php">Inicio</a></li>
+                <li><a href="../../tienda.php">Tienda</a></li>
+                <li><a href="../../pedidos/historial.php">Pedidos</a></li>
+                <li><a href="../../carrito/index.php">Carrito</a></li>
+                <li><a href="../../perfil.php">Perfil</a></li>
+                <li><a href="../../logout.php">Cerrar Sesión</a></li>
             </ul>
         </nav>
     </header>
