@@ -1,5 +1,12 @@
 <?php
 session_start();
+
+// Verificar que el usuario esté autenticado
+if (!isset($_SESSION['usuario'])) {
+    header("Location: ../login.php");
+    exit();
+}
+
 include_once '../includes/db.php';
 include_once '../includes/header.php';
 ?>
