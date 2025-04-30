@@ -12,7 +12,7 @@ if (session_status() == PHP_SESSION_NONE) session_start();
 </head>
 <body class="landing">
 
-<?php include("includes/header.php"); ?>
+<?php include("../includes/header.php"); ?>
 
 <a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>
 
