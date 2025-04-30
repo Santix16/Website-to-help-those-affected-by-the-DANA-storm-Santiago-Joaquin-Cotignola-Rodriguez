@@ -35,7 +35,7 @@ if ($result->num_rows === 1) {
             'rol' => $usuario['rol']
         ];
 
-        header('Location: ../perfil/perfil.php');
+        header('Location: index.php');
         exit();
     } else {
         // Contraseña incorrecta
