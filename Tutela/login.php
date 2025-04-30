@@ -21,7 +21,7 @@ if ($result->num_rows === 1) {
         $_SESSION['usuario'] = $usuario['email'];
         $_SESSION['nombre'] = $usuario['nombre'];
         $_SESSION['rol'] = $usuario['rol'];
-        header('Location: index.php');
+        header('Location: index-login.php');
         exit();
     } else {
         header('Location: login.html?error=1');
