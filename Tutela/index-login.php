@@ -22,9 +22,9 @@ if (!isset($_SESSION['usuario'])) {
     <ul>
       <li><a href="index.php">Inicio</a></li>
       <li><a href="contacto.php">Contacto</a></li>
-      <li><a href="carrito.php">Carrito</a></li>
-      <li><a href="perfil.php">Usuario</a></li>
-      <li><a href="mensajes.php">Mensajes</a></li>
+      <li><a href="carrito/index.php">Carrito</a></li>
+      <li><a href="users/perfil.php">Usuario</a></li>
+      <li><a href="mensajes/mensajes.php">Mensajes</a></li>
       <li><a href="logout.php">Cerrar sesión</a></li>
     </ul>
   </nav>
