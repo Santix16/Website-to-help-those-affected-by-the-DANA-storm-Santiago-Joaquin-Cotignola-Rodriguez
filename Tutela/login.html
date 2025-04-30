@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Iniciar Sesión - TELE-DANA</title>
+  <link rel="stylesheet" href="assets/css/main.css"> <!-- CSS del tema Spatial -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body class="landing">
+
+<!-- Header -->
+<header id="header" class="alt">
+  <h1><strong><a href="index.html">Tutela La DANA</a></strong></h1>
+  <nav id="nav">
+    <ul>
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="servicios.php">Servicios</a></li>
+      <li><a href="quienes_somos.html">Quiénes Somos</a></li>
+      <li><a href="contacto/contacto.html">Contacto</a></li>
+      <li><a href="login.html">Login</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- Main -->
+<section id="main" class="wrapper style1" style="
+    padding-top: 6em;
+    padding-bottom: 6em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;">
+  <div class="container" style="max-width: 600px;">
+    <header class="major special">
+      <h2>Iniciar Sesión</h2>
+      <p>Accede a tu cuenta de TELE-DANA</p>
+    </header>
+
+    <section>
+      <form method="POST" action="login.php" class="alt">
+        <div class="row uniform 50%">
+          <div class="12u$">
+            <input type="email" name="email" id="email" placeholder="Correo Electrónico" required />
+          </div>
+          <div class="12u$">
+            <input type="password" name="password" id="password" placeholder="Contraseña" required />
+          </div>
+          <div class="12u$">
+            <ul class="actions">
+              <li><input type="submit" value="Ingresar" class="special" /></li>
+            </ul>
+          </div>
+        </div>
+      </form>
+      <p style="text-align: center;">¿No tienes cuenta? <a href="register.html">Regístrate aquí</a></p>
+    </section>
+  </div>
+</section>
+
+
+
+<!-- Footer -->
+<footer id="footer" style="
+  padding: 0.8em 0;
+  background: #f5f5f5;
+  font-size: 0.8em;
+  text-align: center;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);">
+  <div class="container">
+    <p style="margin: 0;">© 2025 TELE-DANA. Todos los derechos reservados.</p>
+    <a href="legal/legal.html">Términos de Uso</a> |
+    <a href="legal/privacidad.html">Protección de Datos</a>
+  </div>
+</footer>
+
+
+
+
+<!-- Scripts del tema -->
+<script src="js/jquery.min.js"></script>
+<script src="js/skel.min.js"></script>
+<script src="js/skel-layers.min.js"></script>
+<script src="js/init.js"></script>
+
+</body>
+</html>
