@@ -1,7 +1,13 @@
 <?php
 session_start();
 include_once '../includes/db.php';
+include_once '../includes/header.php';
 
+// Verificar que el usuario esté autenticado
+if (!isset($_SESSION['usuario'])) {
+    header("Location: ../login.php");
+    exit();
+}
 // Verificar si existe el carrito en la sesión, si no, inicializarlo
 if (!isset($_SESSION['carrito'])) {
     $_SESSION['carrito'] = array();
@@ -18,19 +24,6 @@ if (!isset($_SESSION['carrito'])) {
     <link rel="stylesheet" href="../assets/css/main.css"> <!-- Asegúrate de que la ruta sea correcta -->
 </head>
 <body class="landing">
-
-<!-- Header -->
-<header id="header" class="alt">
-    <h1><strong><a href="../index.html">Spatial</a></strong> by Templated</h1>
-    <nav id="nav">
-        <ul>
-            <li><a href="../index.html">Home</a></li>
-            <li><a href="../productos/index.php">Productos</a></li>
-            <li><a href="contacto/contacto.php">Contacto</a></li>
-            <li><a href="../pedidos/historial.php">Pedidos</a></li>
-        </ul>
-    </nav>
-</header>
 
 <a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>
 
