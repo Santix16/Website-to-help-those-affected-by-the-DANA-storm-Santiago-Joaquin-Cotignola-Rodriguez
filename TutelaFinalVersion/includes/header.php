@@ -18,7 +18,7 @@ if (session_status() == PHP_SESSION_NONE) session_start();
     <ul>
       <li><a href="../index.php">Inicio</a></li>
       <li><a href="../servicios.php">Servicios</a></li>
-      <li><a href="../quienes_somos.html">Quiénes Somos</a></li>
+      <li><a href="../quienes_somos.php">Quiénes Somos</a></li>
       <li><a href="../contacto/contacto.php">Contacto</a></li>
       <li><a href="../carrito/index.php">Carrito</a></li>  
       <li><a href="../users/perfil.php">Usuario</a></li>
