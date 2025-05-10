@@ -1,14 +1,13 @@
 <?php
 session_start();
 
-// Verificar si el usuario está logueado
+// Verificar que el usuario esté autenticado
 if (!isset($_SESSION['usuario'])) {
-    // Si el usuario no está logueado, mostrar el mensaje
-    $mostrarMensaje = true;
-} else {
-    // Si está logueado, asignamos la variable para mostrar la información
-    $mostrarMensaje = false;
+    header("Location: ../login.php");
+    exit();
 }
+
+$usuario = $_SESSION['usuario']; // Ya es seguro acceder a esta variable
 ?>
 
 <!DOCTYPE HTML>
@@ -21,64 +20,49 @@ if (!isset($_SESSION['usuario'])) {
 </head>
 <body class="landing">
 
+    <!-- Incluir el encabezado -->
     <?php include("../includes/header.php"); ?>
 
     <!-- Banner -->
     <section id="banner">
-        
+        <h2>Bienvenido, <?php echo htmlspecialchars($usuario['nombre']); ?></h2>
+        <p>Estos son tus datos de perfil. Puedes editarlos en cualquier momento.</p>
     </section>
 
-    <!-- Si el usuario no está logueado, mostrar el mensaje -->
-    <?php if ($mostrarMensaje): ?>
-    <section id="mensaje" class="wrapper style1">
-        <div class="container 75%">
+    <!-- Contenido principal del perfil -->
+    <section id="main-content" class="wrapper style1">
+        <div class="container">
+            <h3>Tu Información:</h3>
             <div class="row 200%">
                 <div class="6u 12u$(medium)">
-                    <header class="major">
-                        <h2>Por favor, inicie sesión</h2>
-                        <p>Para acceder a tu perfil, necesitas estar logueado.</p>
-                    </header>
+                    <p><strong>Nombre:</strong> <?php echo htmlspecialchars($usuario['nombre']); ?></p>
                 </div>
                 <div class="6u$ 12u$(medium)">
-                    <p>Si ya tienes cuenta, por favor, inicia sesión para ver y editar tu perfil.</p>
-                    <ul class="actions">
-                        <li><a href="../login.html" class="button special big">Iniciar Sesión</a></li>
-                    </ul>
+                    <p><strong>Correo Electrónico:</strong> <?php echo htmlspecialchars($usuario['email']); ?></p>
                 </div>
             </div>
+            <div class="row 200%">
+                <div class="6u 12u$(medium)">
+                    <p><strong>Teléfono:</strong> <?php echo isset($usuario['telefono']) ? htmlspecialchars($usuario['telefono']) : 'No disponible'; ?></p>
+                </div>
+                <div class="6u$ 12u$(medium)">
+                    <p><strong>Sobre mí:</strong> <?php echo isset($usuario['sobre_mi']) ? htmlspecialchars($usuario['sobre_mi']) : 'No disponible'; ?></p>
+                </div>
+            </div>
+            <div class="row 200%">
+                <div class="6u 12u$(medium)">
+                    <p><strong>Valoración:</strong> <?php echo isset($usuario['valoracion']) ? htmlspecialchars($usuario['valoracion']) : 'No disponible'; ?></p>
+                </div>
+                <div class="6u$ 12u$(medium)">
+                    <p><strong>Productos en venta:</strong> <?php echo isset($usuario['productos']) ? htmlspecialchars(implode(", ", $usuario['productos'])) : 'No disponible'; ?></p>
+                </div>
+            </div>
+
+            <!-- Enlace al perfil privado -->
+            <a href="perfil_privado.php" class="button special big">Actualizar Perfil</a>
         </div>
     </section>
-    <?php else: ?>
-        <!-- Si está logueado, mostrar su información -->
-        <section id="one" class="wrapper style1">
-            <div class="container 75%">
-                <div class="row 200%">
-                    <div class="6u 12u$(medium)">
-                        <header class="major">
-                            <h2>Tu información</h2>
-                            <p>Detalles de tu perfil</p>
-                        </header>
-                    </div>
-                    <div class="6u$ 12u$(medium)">
-                        <p><strong>Nombre:</strong> <?php echo htmlspecialchars($_SESSION['usuario']['nombre']); ?></p>
-                        <p><strong>Email:</strong> <?php echo htmlspecialchars($_SESSION['usuario']['email']); ?></p>
-                        <p><strong>Teléfono:</strong> <?php echo htmlspecialchars($_SESSION['usuario']['telefono']); ?></p>
-                        <p><strong>Valoración:</strong> ☆ (4.5/5)</p>
-                        <p><strong>Sobre mí:</strong> <?php echo htmlspecialchars($_SESSION['usuario']['sobre_mi']); ?></p>
-                        <p><strong>Productos en venta:</strong></p>
-                        <ul>
-                            <li>Producto 1</li>
-                            <li>Producto 2</li>
-                            <li>Producto 3</li>
-                        </ul>
-                        <p><a href="perfil_privado.php" class="button special big">Ir a mi perfil privado</a></p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    <?php endif; ?>
 
-    <!-- Footer -->
     <footer id="footer">
         <div class="container">
             <ul class="icons">
@@ -90,19 +74,17 @@ if (!isset($_SESSION['usuario'])) {
     </footer>
 
     <div class="copyright">
-        © 2025 Tutela La DANA. Todos los derechos reservados. |
-        <a href="legal/legal.html">Términos de Uso</a> |
-        <a href="legal/privacidad.html">Protección de Datos</a>
+        &copy; 2025 Tutela La DANA. Todos los derechos reservados.
     </div>
-
-    <!-- Scripts -->
-    <script src="../assets/js/jquery.min.js"></script>
-    <script src="../assets/js/skel.min.js"></script>
-    <script src="../assets/js/util.js"></script>
-    <script src="../assets/js/main.js"></script>
 
 </body>
 </html>
+
+
+
+
+
+
 
 
 

@@ -58,9 +58,6 @@ try {
 <div class="container" style="padding: 2em;">
     <h1>Historial de Pedidos</h1>
 
-    <!-- Enlace para añadir nuevo pedido -->
-    <p><a href="../servicios.php" class="btn">Añadir un nuevo pedido</a></p>
-
     <?php if (count($pedidos) > 0): ?>
         <table border="1" cellpadding="10" cellspacing="0">
             <thead>
@@ -92,5 +89,3 @@ try {
 <?php include("../includes/footer.php"); ?>
 </body>
 </html>
-
-

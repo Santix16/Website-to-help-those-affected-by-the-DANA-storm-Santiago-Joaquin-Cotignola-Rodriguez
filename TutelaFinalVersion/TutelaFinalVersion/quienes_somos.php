@@ -1,0 +1,108 @@
+<?php session_start(); ?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiénes Somos - TELE-DANA</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body class="landing">
+
+<header id="header" class="alt">
+  <h1><strong><a href="index.php">Tutela La DANA</a></strong></h1>
+  <nav id="nav">
+    <ul>
+      <li><a href="index.php">Inicio</a></li>
+      <li><a href="servicios.php">Servicios</a></li>
+      <li><a href="quienes_somos.php">Quiénes Somos</a></li> <!-- estás aquí -->
+      <li><a href="contacto/contacto.php">Contacto</a></li>
+      <li><a href="carrito/index.php">Carrito</a></li>
+      <li><a href="users/perfil.php">Usuario</a></li>
+      <li><a href="mensajes/inbox.php">Mensaje</a></li>
+      <li><a href="pedidos/historial.php">Pedidos</a></li>
+      <?php if (isset($_SESSION['usuario'])): ?>
+        <li><a href="logout.php">Cerrar sesión</a></li>
+      <?php else: ?>
+        <li><a href="login.php">Login</a></li>
+      <?php endif; ?>
+    </ul>
+  </nav>
+</header>
+
+  
+
+<!-- Sección principal -->
+<section id="main" class="wrapper style1">
+  <div class="container">
+    <header class="major special">
+      <h2>¿Quiénes Somos?</h2>
+      <p>Conoce el propósito de TELE-DANA</p>
+    </header>
+
+    <div class="content">
+      <p>
+        En <strong>TELE-DANA</strong>, creemos firmemente en el poder de la solidaridad y el compromiso ciudadano. 
+        Somos una iniciativa creada para brindar <strong>apoyo directo y coordinado a las personas afectadas por la DANA</strong>, 
+        facilitando recursos, orientación y asistencia en momentos de urgencia y recuperación.
+      </p>
+
+      <p>
+        Nuestro equipo está conformado por profesionales, voluntarios y ciudadanos comprometidos, que trabajan en red para ofrecer 
+        <em>acompañamiento emocional, orientación legal y social, coordinación de donaciones y recursos, así como apoyo psicológico básico</em>. 
+        Nuestra misión es que cada persona afectada por la DANA sienta que no está sola.
+      </p>
+
+      <h3>Nuestra Misión</h3>
+      <p>
+        Proporcionar un canal accesible y humano de ayuda a quienes más lo necesitan, actuando con transparencia, empatía y eficacia. 
+        En TELE-DANA, no solo damos asistencia: construimos comunidad.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer id="footer" style="
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 0.5em 0;
+    background: #f5f5f5;
+    text-align: center;
+    font-size: 0.8em;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);">
+  <div class="container">
+    <ul class="copyright" style="margin: 0; padding: 0; list-style: none;">
+      <li style="display: inline;">© 2025 TELE-DANA. Todos los derechos reservados.</li>
+      <li style="display: inline; margin-left: 10px;"><a href="legal/legal.html">Términos de Uso</a></li>
+      <li style="display: inline; margin-left: 10px;"><a href="legal/privacidad.html">Protección de Datos</a></li>
+    </ul>
+  </div>
+</footer>
+
+<!-- Footer Social + Protección -->
+<footer id="footer">
+  <div class="container">
+    <ul class="icons">
+      <li><a href="#" class="icon fa-facebook"></a></li>
+      <li><a href="#" class="icon fa-twitter"></a></li>
+      <li><a href="#" class="icon fa-instagram"></a></li>
+    </ul>
+
+    <section id="proteccion-datos" style="margin-top: 2em;">
+      <h3>Protección de datos</h3>
+      <a href="politica-privacidad.html" style="color: #00c4ff; font-weight: bold; text-decoration: underline;">Política de Privacidad</a> para más información sobre cómo tratamos tus datos personales.
+    </section>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/skel.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
+
+</body>
+</html>

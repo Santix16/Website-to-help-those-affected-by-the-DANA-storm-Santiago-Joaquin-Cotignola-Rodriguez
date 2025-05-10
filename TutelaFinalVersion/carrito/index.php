@@ -2,6 +2,12 @@
 session_start();
 include_once '../includes/db.php';
 
+// Verificar que el usuario esté autenticado
+if (!isset($_SESSION['usuario'])) {
+    header("Location: ../login.php");
+    exit();
+}
+
 // Verificar si existe el carrito en la sesión, si no, inicializarlo
 if (!isset($_SESSION['carrito'])) {
     $_SESSION['carrito'] = array();
@@ -14,11 +20,11 @@ if (!isset($_SESSION['carrito'])) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Carrito de Compras - DANA</title>
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-    <link rel="stylesheet" href="../assets/css/main.css"> <!-- Asegúrate de que la ruta sea correcta -->
+    <link rel="stylesheet" href="../assets/css/main.css">
 </head>
 <body class="landing">
 
+<!-- Encabezado -->
 <header id="header" class="alt">
   <h1><strong><a href="../index.php">Tutela La DANA</a></strong></h1>
   <nav id="nav">
@@ -27,7 +33,7 @@ if (!isset($_SESSION['carrito'])) {
       <li><a href="../servicios.php">Servicios</a></li>
       <li><a href="../quienes_somos.html">Quiénes Somos</a></li>
       <li><a href="../contacto/contacto.php">Contacto</a></li>
-      <li><a href="index.php">Carrito</a></li> <!-- Ya estás dentro -->
+      <li><a href="index.php">Carrito</a></li>
       <li><a href="../users/perfil.php">Usuario</a></li>
       <li><a href="../mensajes/inbox.php">Mensaje</a></li>
       <li><a href="../pedidos/historial.php">Pedidos</a></li>
@@ -40,84 +46,69 @@ if (!isset($_SESSION['carrito'])) {
   </nav>
 </header>
 
-
 <a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>
 
 <!-- Banner -->
 <section id="banner">
+    <h2>Carrito de Compras</h2>
+    <p>Revisa los productos que has agregado a tu carrito.</p>
+</section>
 
-    <?php if (!isset($_SESSION['usuario'])): ?>
-        <!-- Si el usuario NO ha iniciado sesión -->
-        <section id="banner">
-            <h2>Acceso Restringido</h2>
-            <p style="text-align:center; font-size: 1.2em; color: #888;">
-                Debes <a href="../login.html">iniciar sesión</a> para acceder al carrito de compras.
-            </p>
-        </section>
-    <?php else: ?>
-        <h2>Carrito de Compras</h2>
-        <p>Revisa los productos que has agregado a tu carrito.</p>
-        <!-- Si el usuario está logueado, muestra el carrito -->
-        <section id="one" class="wrapper style1">
-            <div class="container 75%">
-                <div class="row 200%">
-                    <div class="12u">
-                        <header class="major">
-                            <h2>Tu Carrito de Compras</h2>
-                        </header>
+<!-- Contenido del carrito -->
+<section id="one" class="wrapper style1">
+    <div class="container 75%">
+        <div class="row 200%">
+            <div class="12u">
+                <header class="major">
+                    <h2>Tu Carrito de Compras</h2>
+                </header>
 
-                        <?php
-                        if (empty($_SESSION['carrito'])) {
-                            echo "<p>No has agregado ningún producto al carrito.</p>";
-                        } else {
-                            $total = 0;
-                            echo '<table border="1" cellpadding="10" cellspacing="0">';
-                            echo '<thead>
-                                    <tr>
-                                        <th>Producto</th>
-                                        <th>Cantidad</th>
-                                        <th>Precio Unitario (tonkens)</th>
-                                        <th>Subtotal (tonkens)</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>';
+                <?php
+                if (empty($_SESSION['carrito'])) {
+                    echo "<p>No has agregado ningún producto al carrito.</p>";
+                } else {
+                    $total = 0;
+                    echo '<table border="1" cellpadding="10" cellspacing="0">';
+                    echo '<thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Precio Unitario (tonkens)</th>
+                                <th>Subtotal (tonkens)</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>';
 
-                            // Recorrer cada producto en el carrito
-                            foreach ($_SESSION['carrito'] as $producto_id => $cantidad) {
-                                // Consultar información del producto
-                                $stmt = $conexion->prepare("SELECT nombre, precio_tonkens FROM productos WHERE id = ?");
-                                $stmt->bind_param("i", $producto_id);
-                                $stmt->execute();
-                                $resultado = $stmt->get_result();
-                                if ($resultado && $resultado->num_rows > 0) {
-                                    $producto = $resultado->fetch_assoc();
-                                    $subtotal = $cantidad * $producto['precio_tonkens'];
-                                    $total += $subtotal;
+                    foreach ($_SESSION['carrito'] as $producto_id => $cantidad) {
+                        $stmt = $conexion->prepare("SELECT nombre, precio_tonkens FROM productos WHERE id = ?");
+                        $stmt->bind_param("i", $producto_id);
+                        $stmt->execute();
+                        $resultado = $stmt->get_result();
+                        if ($resultado && $resultado->num_rows > 0) {
+                            $producto = $resultado->fetch_assoc();
+                            $subtotal = $cantidad * $producto['precio_tonkens'];
+                            $total += $subtotal;
 
-                                    echo "<tr>";
-                                    echo "<td>" . htmlspecialchars($producto['nombre']) . "</td>";
-                                    echo "<td>" . $cantidad . "</td>";
-                                    echo "<td>" . $producto['precio_tonkens'] . "</td>";
-                                    echo "<td>" . $subtotal . "</td>";
-                                    echo "<td>
-                                            <a href='eliminar_del_carrito.php?id=" . $producto_id . "' onclick=\"return confirm('¿Estás seguro de eliminar este producto?');\">Eliminar</a>
-                                        </td>";
-                                    echo "</tr>";
-                                }
-                            }
-                            echo '</tbody></table>';
-                            echo "<p><strong>Total:</strong> " . $total . " tonkens</p>";
-                            echo '<p><a href="checkout.php" class="button special big">Finalizar Compra</a></p>';
+                            echo "<tr>";
+                            echo "<td>" . htmlspecialchars($producto['nombre']) . "</td>";
+                            echo "<td>" . $cantidad . "</td>";
+                            echo "<td>" . $producto['precio_tonkens'] . "</td>";
+                            echo "<td>" . $subtotal . "</td>";
+                            echo "<td><a href='eliminar_del_carrito.php?id=" . $producto_id . "' onclick=\"return confirm('¿Estás seguro de eliminar este producto?');\">Eliminar</a></td>";
+                            echo "</tr>";
                         }
-                        ?>
+                    }
+                    echo '</tbody></table>';
+                    echo "<p><strong>Total:</strong> " . $total . " tonkens</p>";
+                    echo '<p><a href="checkout.php" class="button special big">Finalizar Compra</a></p>';
+                }
+                ?>
 
-                        <p><a href="../productos/index.php" class="button big">Continuar Comprando</a></p>
-                    </div>
-                </div>
+                <p><a href="../productos/index.php" class="button big">Continuar Comprando</a></p>
             </div>
-        </section>
-    <?php endif; ?>
+        </div>
+    </div>
 </section>
 
 <!-- Footer -->
@@ -145,6 +136,7 @@ if (!isset($_SESSION['carrito'])) {
 
 </body>
 </html>
+
 
 
 

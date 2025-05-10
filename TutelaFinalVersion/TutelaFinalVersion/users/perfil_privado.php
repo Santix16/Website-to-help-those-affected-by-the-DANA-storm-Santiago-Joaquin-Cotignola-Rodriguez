@@ -36,10 +36,6 @@ if (!isset($usuario['productos']) || !is_array($usuario['productos'])) {
 if (!isset($usuario['valoracion']) || $usuario['valoracion'] < 1 || $usuario['valoracion'] > 5) {
     $usuario['valoracion'] = 0; // Valor predeterminado
 }
-
-// Verificar si existen 'telefono' y 'sobre_mi' para evitar errores
-$telefono = isset($usuario['telefono']) ? $usuario['telefono'] : '';
-$sobre_mi = isset($usuario['sobre_mi']) ? $usuario['sobre_mi'] : '';
 ?>
 
 <!DOCTYPE html>
@@ -51,9 +47,17 @@ $sobre_mi = isset($usuario['sobre_mi']) ? $usuario['sobre_mi'] : '';
     <link rel="stylesheet" href="../assets/css/main.css">
 </head>
 <body class="landing">
-
-    <!-- Incluir el encabezado -->
-    <?php include('../includes/header.php'); ?>
+    <header id="header" class="alt">
+        <h1><strong><a href="../index.php">TELE-DANA</a></strong> - Perfil Privado</h1>
+        <nav id="nav">
+            <ul>
+                <li><a href="../index.php">Inicio</a></li>
+                <li><a href="../tienda.php">Tienda</a></li>
+                <li><a href="perfil_privado.php">Perfil</a></li>
+                <li><a href="../logout.php">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
 
     <section id="banner">
         <h2>Perfil del Usuario</h2>
@@ -83,11 +87,11 @@ $sobre_mi = isset($usuario['sobre_mi']) ? $usuario['sobre_mi'] : '';
                 <div class="row 200%">
                     <div class="6u 12u$(medium)">
                         <label for="telefono">Teléfono:</label>
-                        <input type="text" id="telefono" name="telefono" value="<?php echo htmlspecialchars($telefono); ?>" required>
+                        <input type="text" id="telefono" name="telefono" value="<?php echo htmlspecialchars($usuario['telefono']); ?>" required>
                     </div>
                     <div class="6u$ 12u$(medium)">
                         <label for="sobre_mi">Sobre mí:</label>
-                        <textarea id="sobre_mi" name="sobre_mi" required><?php echo htmlspecialchars($sobre_mi); ?></textarea>
+                        <textarea id="sobre_mi" name="sobre_mi" required><?php echo htmlspecialchars($usuario['sobre_mi']); ?></textarea>
                     </div>
                 </div>
 
@@ -138,6 +142,4 @@ $sobre_mi = isset($usuario['sobre_mi']) ? $usuario['sobre_mi'] : '';
     </div>
 </body>
 </html>
-
-
 

@@ -40,22 +40,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $remitente_id = $_SESSION['usuario']['id'];
 
-        // Buscar el ID del destinatario por su nombre (PDO)
-        $stmt = $conexion->prepare("SELECT id_usuario FROM usuarios WHERE nombre = ?");
-        $stmt->bindParam(1, $destinatario, PDO::PARAM_STR);
+        // Buscar el ID del destinatario por su nombre
+        $stmt = $conexion->prepare("SELECT id FROM usuarios WHERE nombre = ?");
+        $stmt->bind_param("s", $destinatario);
         $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $result = $stmt->get_result();
 
-        if ($result) {
+        if ($result->num_rows > 0) {
             // Si se encuentra el destinatario
-            $destinatario_id = $result['id_usuario'];
+            $destinatario_id = $result->fetch_assoc()['id'];
 
-
-            // Insertar mensaje (PDO)
+            // Insertar mensaje
             $stmt = $conexion->prepare("INSERT INTO mensajes (remitente_id, destinatario_id, mensaje) VALUES (?, ?, ?)");
-            $stmt->bindParam(1, $remitente_id, PDO::PARAM_INT);
-            $stmt->bindParam(2, $destinatario_id, PDO::PARAM_INT);
-            $stmt->bindParam(3, $mensaje, PDO::PARAM_STR);
+            $stmt->bind_param("iis", $remitente_id, $destinatario_id, $mensaje);
 
             if ($stmt->execute()) {
                 setFlashMessage("Mensaje enviado exitosamente.");
@@ -109,6 +106,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 </body>
 </html>
-
-
 
