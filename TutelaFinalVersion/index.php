@@ -25,7 +25,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>TELE-DANA - Ayuda a los afectados por la DANA</title>
+  <title>Tutela La Dana - Ayuda a los afectados por la DANA</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="assets/css/main.css"> <!-- Estilo Spatial -->
 </head>
@@ -44,7 +44,7 @@
     <h2>Bienvenido a Tutela La DANA</h2>
     <p>Unidos para ayudar a los afectados por la DANA</p>
     <ul class="actions">
-      <li><a href="register.html" class="button special big">Únete a la causa</a></li>
+      <li><a href="register.php" class="button special big">Únete a la causa</a></li>
     </ul>
   </div>
 </section>
