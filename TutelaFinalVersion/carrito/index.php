@@ -35,7 +35,6 @@ if (!isset($_SESSION['carrito'])) {
       <li><a href="../contacto/contacto.php">Contacto</a></li>
       <li><a href="index.php">Carrito</a></li>
       <li><a href="../users/perfil.php">Usuario</a></li>
-      <li><a href="../mensajes/inbox.php">Mensaje</a></li>
       <li><a href="../pedidos/historial.php">Pedidos</a></li>
       <?php if (isset($_SESSION['usuario'])): ?>
         <li><a href="../logout.php">Cerrar sesión</a></li>
@@ -115,9 +114,9 @@ if (!isset($_SESSION['carrito'])) {
 <footer id="footer">
     <div class="container">
         <ul class="icons">
-            <li><a href="#" class="icon fa-facebook"></a></li>
-            <li><a href="#" class="icon fa-twitter"></a></li>
-            <li><a href="#" class="icon fa-instagram"></a></li>
+            <li><a href="#" class="icon fa-facebook" aria-label="Facebook de Tutela La DANA"></a></li>
+            <li><a href="#" class="icon fa-twitter" aria-label="Twitter de Tutela La DANA"></a></li>
+            <li><a href="#" class="icon fa-instagram" aria-label="Instagram de Tutela La DANA"></a></li>
         </ul>
     </div>
 </footer>

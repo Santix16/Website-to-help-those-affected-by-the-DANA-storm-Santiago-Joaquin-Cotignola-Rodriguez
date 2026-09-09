@@ -21,7 +21,6 @@
       <li><a href="contacto/contacto.php">Contacto</a></li>
       <li><a href="carrito/index.php">Carrito</a></li>
       <li><a href="users/perfil.php">Usuario</a></li>
-      <li><a href="mensajes/inbox.php">Mensaje</a></li>
       <li><a href="pedidos/historial.php">Pedidos</a></li>
       <?php if (isset($_SESSION['usuario'])): ?>
         <li><a href="logout.php">Cerrar sesión</a></li>
@@ -56,9 +55,9 @@
           <h3>Alimentos</h3>
           <p>Agua potable, comidas preparadas, frutas y verduras.</p>
           <?php if (isset($_SESSION['usuario'])): ?>
-            <a href="servicios_alimentos.php" class="button small">Solicitar</a>
+            <a href="servicios_alimentos.php" class="button small">Ver alimentos</a>
           <?php else: ?>
-            <a href="login.php" class="button small">Solicitar</a>
+            <a href="login.php" class="button small">Iniciar sesión para alimentos</a>
           <?php endif; ?>
         </div>
       </div>
@@ -70,9 +69,9 @@
           <h3>Limpieza</h3>
           <p>Productos de higiene personal y limpieza del hogar.</p>
           <?php if (isset($_SESSION['usuario'])): ?>
-            <a href="servicios_limpieza.php" class="button small">Solicitar</a>
+            <a href="servicios_limpieza.php" class="button small">Ver limpieza</a>
           <?php else: ?>
-            <a href="login.php" class="button small">Solicitar</a>
+            <a href="login.php" class="button small">Iniciar sesión para limpieza</a>
           <?php endif; ?>
         </div>
       </div>
@@ -84,9 +83,9 @@
           <h3>Ropa</h3>
           <p>Ropa donada, mantas y calzado de emergencia.</p>
           <?php if (isset($_SESSION['usuario'])): ?>
-            <a href="servicios_ropa.php" class="button small">Solicitar</a>
+            <a href="servicios_ropa.php" class="button small">Ver ropa</a>
           <?php else: ?>
-            <a href="login.php" class="button small">Solicitar</a>
+            <a href="login.php" class="button small">Iniciar sesión para ropa</a>
           <?php endif; ?>
         </div>
       </div>
@@ -94,6 +93,6 @@
   </div>
 </section>
 
-<?php include("includes/footer.php"); ?>
+<?php include_once 'includes/footer.php'; ?>
 </body>
 </html>

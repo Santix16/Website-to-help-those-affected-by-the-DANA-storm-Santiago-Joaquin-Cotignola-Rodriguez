@@ -10,8 +10,8 @@
       <li><a href="contacto/contacto.php">Contacto</a></li>
       <li><a href="carrito/index.php">Carrito</a></li>
       <li><a href="users/perfil.php">Usuario</a></li>
-      <li><a href="mensajes/inbox.php">Mensaje</a></li>
       <li><a href="pedidos/historial.php">Pedidos</a></li>
+      <?php if (($_SESSION['usuario']['role'] ?? 'USER') === 'ADMIN'): ?><li><a href="admin/index.php">Administracion</a></li><?php endif; ?>
       <?php if (isset($_SESSION['usuario'])): ?>
         <li><a href="logout.php">Cerrar sesión</a></li>
       <?php else: ?>
@@ -45,14 +45,29 @@
     <p>Unidos para ayudar a los afectados por la DANA</p>
     <ul class="actions">
       <li><a href="register.php" class="button special big">Únete a la causa</a></li>
+      <li><a href="servicios.php" class="button big">Solicitar ayuda</a></li>
     </ul>
+  </div>
+</section>
+
+<section class="wrapper style1 special">
+  <div class="container">
+    <header class="major">
+      <h2>Ayuda directa, organizada y transparente</h2>
+      <p>Consulta los recursos disponibles, solicita lo que necesitas y sigue el estado de tu pedido desde tu perfil.</p>
+    </header>
+    <div class="row 150%">
+      <div class="4u 12u$(medium)"><h3>1. Explora</h3><p>Encuentra alimentos, productos de limpieza, ropa y material de apoyo.</p></div>
+      <div class="4u 12u$(medium)"><h3>2. Solicita</h3><p>Confirma una solicitud o prepara un pedido desde el catálogo.</p></div>
+      <div class="4u 12u$(medium)"><h3>3. Consulta</h3><p>Revisa tus pedidos y actualiza tus datos cuando lo necesites.</p></div>
+    </div>
   </div>
 </section>
 
 
 
 <!-- Footer -->
-<?php include("includes/footer.php"); ?>
+<?php include_once 'includes/footer.php'; ?>
 
 <!-- Scripts -->
 <script src="assets/js/jquery.min.js"></script>

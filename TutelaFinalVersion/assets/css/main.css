@@ -9,11 +9,10 @@
 
 /* Reset */
 
-	html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+	 html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strong, sub, sup, var, b, u, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
 		margin: 0;
 		padding: 0;
 		border: 0;
-		font-size: 100%;
 		font: inherit;
 		vertical-align: baseline;
 	}
@@ -27,6 +26,12 @@
 
 	body {
 		line-height: 1;
+		-webkit-text-size-adjust: none;
+		-ms-overflow-style: scrollbar;
+		background: #fff;
+		padding-top: 5em !important;
+		background-color: #fff;
+		color: #666;
 	}
 
 	ol, ul {
@@ -43,12 +48,11 @@
 	}
 
 	table {
-		border-collapse: collapse;
+		background-color: #ffffff !important;
+    	border-collapse: collapse !important;
 		border-spacing: 0;
-	}
-
-	body {
-		-webkit-text-size-adjust: none;
+		margin: 0 0 2em 0;
+		width: 100%;
 	}
 
 /* Box Model */
@@ -64,6 +68,7 @@
 	.container {
 		margin-left: auto;
 		margin-right: auto;
+		width: 80em;
 	}
 
 	.container.\31 25\25 {
@@ -82,10 +87,6 @@
 
 	.container.\32 5\25 {
 		width: 20em;
-	}
-
-	.container {
-		width: 80em;
 	}
 
 	@media screen and (max-width: 1680px) {
@@ -225,6 +226,7 @@
 		-moz-box-sizing: border-box;
 		-webkit-box-sizing: border-box;
 		box-sizing: border-box;
+		margin: 0 0 -1px -2em;
 	}
 
 	.row > * {
@@ -232,6 +234,7 @@
 		-moz-box-sizing: border-box;
 		-webkit-box-sizing: border-box;
 		box-sizing: border-box;
+		padding: 0 0 0 2em;
 	}
 
 	.row:after, .row:before {
@@ -263,14 +266,6 @@
 
 	.row.uniform.\30 \25 {
 		margin: 0em 0 -1px 0em;
-	}
-
-	.row > * {
-		padding: 0 0 0 2em;
-	}
-
-	.row {
-		margin: 0 0 -1px -2em;
 	}
 
 	.row.uniform > * {
@@ -1553,14 +1548,6 @@
 
 /* Basic */
 
-	@-ms-viewport {
-		width: device-width;
-	}
-
-	body {
-		-ms-overflow-style: scrollbar;
-	}
-
 	@media screen and (max-width: 480px) {
 
 		html, body {
@@ -1569,40 +1556,32 @@
 
 	}
 
-	body {
-		background: #fff;
-		padding-top: 6em;
+	body.landing {
+		padding-top: 0 !important;
+		background: var(--dana-paper);
+		color: var(--dana-ink);
 	}
 
-		body.landing {
-			padding-top: 0 !important;
+	@media screen and (max-width: 980px) {
+
+		body {
+			padding-top: 2em;
 		}
 
-		@media screen and (max-width: 980px) {
+	}
 
-			body {
-				padding-top: 2em;
-			}
-
-		}
-
-		body.is-loading *, body.is-loading *:before, body.is-loading *:after {
-			-moz-animation: none !important;
-			-webkit-animation: none !important;
-			-ms-animation: none !important;
-			animation: none !important;
-			-moz-transition: none !important;
-			-webkit-transition: none !important;
-			-ms-transition: none !important;
-			transition: none !important;
-		}
+	body.is-loading *, body.is-loading *:before, body.is-loading *:after {
+		-moz-animation: none !important;
+		-webkit-animation: none !important;
+		-ms-animation: none !important;
+		animation: none !important;
+		-moz-transition: none !important;
+		-webkit-transition: none !important;
+		-ms-transition: none !important;
+		transition: none !important;
+	}
 
 /* Type */
-
-	body {
-		background-color: #fff;
-		color: #666;
-	}
 
 	body, input, select, textarea {
 		font-family: "Raleway", Arial, Helvetica, sans-serif;
@@ -1804,28 +1783,22 @@
 	input[type="button"],
 	button,
 	.button {
-		-moz-appearance: none;
-		-webkit-appearance: none;
-		-ms-appearance: none;
-		appearance: none;
-		-moz-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-		-webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-		-ms-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-		transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-		background-color: #323037;
-		border-radius: 4px;
-		color: #ffffff !important;
-		border: 0;
-		cursor: pointer;
-		display: inline-block;
-		font-weight: 700;
-		height: 3.15em;
-		line-height: 3.25em;
-		padding: 0 2.2em;
-		text-align: center;
-		text-decoration: none;
-		text-transform: uppercase;
-		white-space: nowrap;
+    	height: 2.75em !important;
+    	line-height: 2.75em !important;
+    	padding: 0 1.5em !important;
+    	font-size: 0.85em !important;
+    	font-weight: 700 !important;
+    	text-transform: uppercase !important;
+    	letter-spacing: 1px !important;
+    	border-radius: 4px !important;
+    	border: 0 !important;
+    	cursor: pointer !important;
+    	display: inline-block !important;
+    	width: auto !important;
+    	box-sizing: border-box !important;
+    	white-space: nowrap !important;
+    	background-color: #147a86 !important;
+    	color: #ffffff !important;
 	}
 
 		input[type="submit"]:hover,
@@ -1945,8 +1918,8 @@
 		input[type="button"].special,
 		button.special,
 		.button.special {
-			background-color: #f32853;
-			color: #ffffff !important;
+			background-color: #d1133d;
+			color: #ffffff;
 		}
 
 			input[type="submit"].special:hover,
@@ -1990,7 +1963,6 @@
 		}
 
 		.feature-grid .feature {
-			display: inline-block;
 			float: left;
 			margin-bottom: 3em;
 			width: 50%;
@@ -2097,7 +2069,6 @@
 		appearance: none;
 		background: rgba(144, 144, 144, 0.075);
 		border-radius: 4px;
-		border: none;
 		border: solid 1px rgba(144, 144, 144, 0.25);
 		color: inherit;
 		display: block;
@@ -2126,7 +2097,6 @@
 
 	.select-wrapper {
 		text-decoration: none;
-		text-decoration: none;
 		display: block;
 		position: relative;
 	}
@@ -2134,13 +2104,10 @@
 		.select-wrapper:before {
 			-moz-osx-font-smoothing: grayscale;
 			-webkit-font-smoothing: antialiased;
-			font-family: FontAwesome;
+			font-family: FontAwesome, sans-serif;
 			font-style: normal;
 			font-weight: normal;
 			text-transform: none !important;
-		}
-
-		.select-wrapper:before {
 			content: '\f078';
 			color: rgba(144, 144, 144, 0.25);
 			display: block;
@@ -2200,14 +2167,10 @@
 			input[type="radio"] + label:before {
 				-moz-osx-font-smoothing: grayscale;
 				-webkit-font-smoothing: antialiased;
-				font-family: FontAwesome;
+				font-family: FontAwesome, sans-serif;
 				font-style: normal;
 				font-weight: normal;
 				text-transform: none !important;
-			}
-
-			input[type="checkbox"] + label:before,
-			input[type="radio"] + label:before {
 				background: rgba(144, 144, 144, 0.075);
 				border-radius: 4px;
 				border: solid 1px rgba(144, 144, 144, 0.25);
@@ -2246,27 +2209,27 @@
 
 	::-webkit-input-placeholder {
 		opacity: 1.0;
-		color: #aaa !important;
+		color: #595959 !important;
 	}
 
 	:-moz-placeholder {
 		opacity: 1.0;
-		color: #aaa !important;
+		color: #595959 !important;
 	}
 
 	::-moz-placeholder {
 		opacity: 1.0;
-		color: #aaa !important;
+		color: #595959 !important;
 	}
 
 	:-ms-input-placeholder {
 		opacity: 1.0;
-		color: #aaa !important;
+		color: #595959 !important;
 	}
 
 	.formerize-placeholder {
 		opacity: 1.0;
-		color: #aaa !important;
+		color: #595959 !important;
 	}
 
 /* Icon */
@@ -2280,7 +2243,7 @@
 		.icon:before {
 			-moz-osx-font-smoothing: grayscale;
 			-webkit-font-smoothing: antialiased;
-			font-family: FontAwesome;
+			font-family: FontAwesome, sans-serif;
 			font-style: normal;
 			font-weight: normal;
 			text-transform: none !important;
@@ -2329,10 +2292,6 @@
 			margin: 0 0 2em 0;
 			width: 100%;
 		}
-
-			.image.fit img {
-				width: 100%;
-			}
 
 		.image.rounded {
 			border-radius: 100%;
@@ -2561,7 +2520,7 @@
 	}
 
 	header p {
-		color: #aaa;
+		color: #595959;
 		position: relative;
 		margin: 0 0 1.5em 0;
 		text-transform: uppercase;
@@ -2656,11 +2615,6 @@
 		overflow-x: auto;
 	}
 
-	table {
-		margin: 0 0 2em 0;
-		width: 100%;
-	}
-
 		table tbody tr {
 			border: solid 1px rgba(144, 144, 144, 0.25);
 			border-left: 0;
@@ -2672,11 +2626,13 @@
 			}
 
 		table td {
+			color: #333333 !important;
 			padding: 0.75em 0.75em;
 		}
 
 		table th {
-			color: #484848;
+			background-color: #f4f4f4 !important;
+    		color: #1e3a5f !important;
 			font-size: 0.9em;
 			font-weight: 700;
 			padding: 0 0.75em 0.75em 0.75em;
@@ -2786,21 +2742,12 @@
 /* Header */
 
 	#header {
-		background-color: #fff;
-		border-bottom: solid 1px rgba(144, 144, 144, 0.25);
-		box-shadow: 0px 0.0375em 0.125em 0px rgba(0, 0, 0, 0.05);
-		color: #484848;
-		cursor: default;
-		font-size: 1.25em;
-		height: 4.5em;
-		left: 0;
-		line-height: 4.4em;
-		position: fixed;
-		text-transform: uppercase;
-		top: 0;
-		width: 100%;
-		z-index: 10000;
-		z-index: 10001;
+    	position: fixed !important;
+    	top: 0 !important;
+    	left: 0 !important;
+    	width: 100% !important;
+    	z-index: 10000 !important;
+    	background-color: #1e3a5f !important;
 	}
 
 		#header h1 {
@@ -2880,18 +2827,18 @@
 			}
 
 		#header.alt {
-			background-color: transparent;
-			border: 0;
-			box-shadow: none;
-			height: 3.25em;
-			line-height: 3.25em;
-			position: absolute;
+    		background-color: transparent;
+    		border: 0;
+    		box-shadow: none;
+    		height: 4.5em;       
+    		line-height: 4.5em;  
+    		position: absolute;
 		}
 
 			#header.alt h1 {
-				color: #ffffff;
-				left: 2.5em;
-				top: 2em;
+    			color: #ffffff;
+    			left: 2.5em;
+    			top: 0; 
 			}
 
 				#header.alt h1 a {
@@ -2899,8 +2846,8 @@
 				}
 
 			#header.alt nav {
-				right: 2em;
-				top: 2em;
+    			right: 2em;
+    			top: 0; 
 			}
 
 				#header.alt nav a {
@@ -2928,7 +2875,6 @@
 
 	.navPanelToggle {
 		text-decoration: none;
-		text-decoration: none;
 		height: 100%;
 		left: 0;
 		position: absolute;
@@ -2940,7 +2886,7 @@
 		.navPanelToggle:before {
 			-moz-osx-font-smoothing: grayscale;
 			-webkit-font-smoothing: antialiased;
-			font-family: FontAwesome;
+			font-family: FontAwesome, sans-serif;
 			font-style: normal;
 			font-weight: normal;
 			text-transform: none !important;
@@ -2957,7 +2903,7 @@
 		.navPanelToggle *:before {
 			background: rgba(144, 144, 144, 0.65);
 			border-radius: 4px;
-			color: #fff;
+			color: #222222;
 			display: block;
 			font-size: 16px;
 			height: 2.25em;
@@ -3037,20 +2983,16 @@
 			right: 0;
 			text-align: right;
 			top: 0;
-			vertical-align: middle;
 			width: 5em;
 		}
 
 			#navPanel .close:before {
 				-moz-osx-font-smoothing: grayscale;
 				-webkit-font-smoothing: antialiased;
-				font-family: FontAwesome;
+				font-family: FontAwesome, sans-serif;
 				font-style: normal;
 				font-weight: normal;
 				text-transform: none !important;
-			}
-
-			#navPanel .close:before {
 				content: '\f00d';
 				width: 3em;
 				height: 3em;
@@ -3113,7 +3055,7 @@
 		}
 
 		#banner p {
-			color: #aaa;
+			color: #595959;
 			font-size: 1.5em;
 			margin-bottom: 1.75em;
 			text-transform: uppercase;
@@ -3186,7 +3128,7 @@
 	#footer {
 		padding: 8em 0 6em 0;
 		background: #f6f6f6;
-		color: #aaa;
+		color: #595959;
 		text-align: center;
 	}
 
@@ -3195,7 +3137,7 @@
 			-webkit-transition: color 0.2s ease-in-out;
 			-ms-transition: color 0.2s ease-in-out;
 			transition: color 0.2s ease-in-out;
-			color: #aaa;
+			color: #595959;
 			text-decoration: none;
 		}
 
@@ -3216,25 +3158,13 @@
 				}
 
 		.copyright {
+			width: 100%;
+			list-style: none;
 			margin: 2em 0;
 			padding: 0;
 			text-align: center;
+			display: inline-block;
 		}
-
-			.copyright {
-				border-left: solid 1px rgba(144, 144, 144, 0.25);
-				display: inline-block;
-				list-style: none;
-				margin-left: 1.5em;
-				padding-left: 1.5em;
-			}
-
-				.copyright{
-					width: 100%;
-					border-left: 0;
-					margin-left: 0;
-					padding-left: 0;
-				}
 
 		@media screen and (max-width: 980px) {
 
@@ -3270,3 +3200,145 @@
 				}
 
 		}
+
+/* Tutela DANA visual theme */
+
+:root {
+	--dana-ink: #183b56;
+	--dana-teal: #087e8b;
+	--dana-mint: #dff5ee;
+	--dana-coral: #b9473d;
+	--dana-sun: #f7b32b;
+	--dana-paper: #fffaf2;
+	--dana-line: rgba(24, 59, 86, 0.16);
+}
+
+body.landing input,
+body.landing select,
+body.landing textarea {
+	color: var(--dana-ink);
+	font-family: "Raleway", "Trebuchet MS", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6,
+strong, b {
+	color: var(--dana-ink);
+}
+
+body.landing a {
+	color: var(--dana-teal);
+}
+
+body.landing #header {
+	background: var(--dana-ink);
+	box-shadow: 0 3px 0 var(--dana-sun);
+}
+
+body.landing #header h1 a,
+body.landing #header nav a {
+	color: #ffffff;
+}
+
+body.landing #header nav a:hover,
+body.landing #header nav a:active {
+	color: var(--dana-sun);
+}
+
+body.landing #banner {
+	background-color: var(--dana-teal);
+	background-image: linear-gradient(135deg, rgba(8, 126, 139, 0.96), rgba(24, 59, 86, 0.92));
+	border-bottom: 8px solid var(--dana-coral);
+}
+
+body.landing #banner h2,
+body.landing #banner p {
+	color: #ffffff;
+}
+
+body.landing .wrapper.style1 {
+	background: var(--dana-paper);
+}
+
+body.landing .wrapper.style2 {
+	background: var(--dana-mint);
+}
+
+.major h2:after {
+	background: var(--dana-coral);
+}
+
+.image.fit,
+.image.fit.captioned,
+.box {
+	border: 1px solid var(--dana-line);
+	border-top: 4px solid var(--dana-sun);
+	background: #ffffff;
+	box-shadow: 0 8px 22px rgba(24, 59, 86, 0.08);
+}
+
+body.landing .image.fit img {
+	object-fit: cover;
+}
+
+button,
+.button,
+input[type="submit"],
+input[type="button"] {
+	background: var(--dana-coral);
+	border-color: var(--dana-coral);
+	box-shadow: 0 3px 0 #c94940;
+	color: #ffffff !important;
+	text-decoration: none;
+}
+
+button:hover,
+.button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover {
+	background: var(--dana-sun);
+	border-color: var(--dana-sun);
+	color: var(--dana-ink) !important;
+}
+
+.checkout-summary,
+.orders-history {
+	width: 100%;
+	margin: 1.5em 0;
+	border: 1px solid var(--dana-line);
+}
+
+.checkout-summary th,
+.checkout-summary td,
+.orders-history th,
+.orders-history td {
+	padding: 0.8em 1em;
+	text-align: left;
+}
+
+body.landing label {
+	color: var(--dana-ink);
+	font-weight: 700;
+}
+
+.button.special,
+input[type="button"].special {
+	background: var(--dana-teal);
+	border-color: var(--dana-teal);
+	box-shadow: 0 3px 0 #05636d;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+select,
+textarea {
+	border: 1px solid var(--dana-line);
+	background: #ffffff;
+	border-radius: 4px;
+}
+
+input:focus,
+select:focus {
+	outline: none;
+}

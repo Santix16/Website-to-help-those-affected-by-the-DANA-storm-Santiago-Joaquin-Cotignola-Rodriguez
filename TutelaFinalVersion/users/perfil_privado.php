@@ -1,143 +1,22 @@
 <?php
 session_start();
-
-// Si el usuario NO ha iniciado sesión, mostramos un mensaje o redirigimos
 if (!isset($_SESSION['usuario'])) {
-    echo '
-    <!DOCTYPE html>
-    <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <title>Acceso restringido</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../assets/css/main.css">
-    </head>
-    <body class="landing">
-        <main style="text-align: center; margin-top: 50px;">
-            <h2>Acceso restringido</h2>
-            <p style="font-size: 1.2em; color: #666;">
-                Debes <a href="../login.html">iniciar sesión</a> para acceder a tu perfil privado.
-            </p>
-        </main>
-    </body>
-    </html>';
-    exit;
+    header('Location: ../login.php');
+    exit();
 }
-
-// Si el usuario está logueado, podemos acceder a su información
-$usuario = $_SESSION['usuario']; // Puedes usar estos datos para autocompletar el formulario si lo deseas
-
-// Asegúrate de que 'productos' es un arreglo
-if (!isset($usuario['productos']) || !is_array($usuario['productos'])) {
-    $usuario['productos'] = []; // Inicializamos como un arreglo vacío si no existe
-}
-
-// Si la valoración no está configurada correctamente, la establecemos por defecto en 0 (o cualquier otro valor predeterminado)
-if (!isset($usuario['valoracion']) || $usuario['valoracion'] < 1 || $usuario['valoracion'] > 5) {
-    $usuario['valoracion'] = 0; // Valor predeterminado
-}
-
-// Verificar si existen 'telefono' y 'sobre_mi' para evitar errores
-$telefono = isset($usuario['telefono']) ? $usuario['telefono'] : '';
-$sobre_mi = isset($usuario['sobre_mi']) ? $usuario['sobre_mi'] : '';
+require_once __DIR__ . '/../includes/db.php';
+$stmt = $conexion->prepare('SELECT nombre, email FROM usuarios WHERE id_usuario = :id');
+$stmt->execute([':id' => (int) $_SESSION['usuario']['id']]);
+$usuario = $stmt->fetch(PDO::FETCH_ASSOC) ?: $_SESSION['usuario'];
+$error = $_GET['error'] ?? null;
 ?>
-
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil Privado</title>
-    <link rel="stylesheet" href="../assets/css/main.css">
-</head>
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Editar perfil - Tutela La DANA</title><link rel="stylesheet" href="../assets/css/main.css"></head>
 <body class="landing">
-
-    <!-- Incluir el encabezado -->
-    <?php include('../includes/header.php'); ?>
-
-    <section id="banner">
-        <h2>Perfil del Usuario</h2>
-        <p>En esta sección puedes actualizar tus datos personales, valoración y productos.</p>
-    </section>
-
-    <!-- Mensaje de actualización -->
-    <?php if (isset($_GET['actualizado']) && $_GET['actualizado'] == 'true'): ?>
-        <div class="alerta-exito">
-            <p>¡Datos actualizados con éxito!</p>
-        </div>
-    <?php endif; ?>
-
-    <section id="main-content" class="wrapper style1">
-        <div class="container">
-            <form action="actualizar_perfil.php" method="POST">
-                <div class="row 200%">
-                    <div class="6u 12u$(medium)">
-                        <label for="nombre">Nombre:</label>
-                        <input type="text" id="nombre" name="nombre" value="<?php echo htmlspecialchars($usuario['nombre']); ?>" required>
-                    </div>
-                    <div class="6u$ 12u$(medium)">
-                        <label for="email">Correo Electrónico:</label>
-                        <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($usuario['email']); ?>" required>
-                    </div>
-                </div>
-                <div class="row 200%">
-                    <div class="6u 12u$(medium)">
-                        <label for="telefono">Teléfono:</label>
-                        <input type="text" id="telefono" name="telefono" value="<?php echo htmlspecialchars($telefono); ?>" required>
-                    </div>
-                    <div class="6u$ 12u$(medium)">
-                        <label for="sobre_mi">Sobre mí:</label>
-                        <textarea id="sobre_mi" name="sobre_mi" required><?php echo htmlspecialchars($sobre_mi); ?></textarea>
-                    </div>
-                </div>
-
-                <!-- Nueva sección para la valoración -->
-                <div class="row 200%">
-                    <div class="6u 12u$(medium)">
-                        <label for="valoracion">Valoración:</label>
-                        <input type="number" id="valoracion" name="valoracion" value="<?php echo htmlspecialchars($usuario['valoracion']); ?>" min="1" max="5" step="0.1" required>
-                    </div>
-                </div>
-
-                <!-- Nueva sección para los productos -->
-                <div class="row 200%">
-                    <div class="12u$">
-                        <label for="productos">Productos en venta (separados por comas):</label>
-                        <input type="text" id="productos" name="productos" value="<?php echo htmlspecialchars(implode(", ", $usuario['productos'])); ?>" required>
-                    </div>
-                </div>
-
-                <div class="row 200%">
-                    <div class="6u 12u$(medium)">
-                        <label for="password">Nueva Contraseña:</label>
-                        <input type="password" id="password" name="password">
-                    </div>
-                </div>
-                <div class="row 200%">
-                    <div class="12u$">
-                        <button type="submit" class="button special big">Actualizar Perfil</button>
-                    </div>
-                </div>
-            </form>
-            <p><a href="perfil.php" class="button special big">Volver a mi perfil</a></p>
-        </div>
-    </section>
-
-    <footer id="footer">
-        <div class="container">
-            <ul class="icons">
-                <li><a href="#" class="icon fa-facebook"></a></li>
-                <li><a href="#" class="icon fa-twitter"></a></li>
-                <li><a href="#" class="icon fa-instagram"></a></li>
-            </ul>
-        </div>
-    </footer>
-
-    <div class="copyright">
-        &copy; 2025 Tutela La DANA. Todos los derechos reservados.
-    </div>
-</body>
-</html>
-
-
+<?php include_once '../includes/header.php'; ?>
+<section id="main" class="wrapper style1"><div class="container" style="max-width: 700px"><header class="major"><h2>Editar perfil</h2><p>Actualiza tus datos de forma segura. La contraseña se cambia solo si escribes una nueva.</p></header>
+<?php if (isset($_GET['actualizado'])): ?><p style="color:green">Perfil actualizado correctamente.</p><?php endif; ?>
+<?php if ($error): ?><p style="color:red"><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></p><?php endif; ?>
+<form action="actualizar_perfil.php" method="post"><label for="nombre">Nombre</label><input id="nombre" name="nombre" type="text" value="<?= htmlspecialchars($usuario['nombre'] ?? '', ENT_QUOTES, 'UTF-8') ?>" required><label for="email">Correo electronico</label><input id="email" name="email" type="email" value="<?= htmlspecialchars($usuario['email'] ?? '', ENT_QUOTES, 'UTF-8') ?>" required><label for="password">Nueva contraseña</label><input id="password" name="password" type="password" minlength="8"><ul class="actions"><li><button type="submit" class="button special">Guardar cambios</button></li><li><a href="perfil.php" class="button">Cancelar</a></li></ul></form></div></section>
+</body></html>
 

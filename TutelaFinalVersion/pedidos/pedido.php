@@ -1,10 +1,10 @@
-<?php 
+<?php
 session_start();
-include '../includes/db.php';
+include_once '../includes/db.php';
 ?>
 
 <!DOCTYPE HTML>
-<html>
+<html lang="es">
 <head>
     <title>Detalle del Pedido - Tutela la DANA</title>
     <meta charset="utf-8" />
@@ -23,7 +23,6 @@ include '../includes/db.php';
       <li><a href="../contacto/contacto.php">Contacto</a></li>
       <li><a href="../carrito/index.php">Carrito</a></li>
       <li><a href="../users/perfil.php">Usuario</a></li>
-      <li><a href="../mensajes/inbox.php">Mensaje</a></li>
       <li><a href="historial.php">Pedidos</a></li> <!-- Ya estás en pedidos/ -->
       <?php if (isset($_SESSION['usuario'])): ?>
         <li><a href="../logout.php">Cerrar sesión</a></li>
@@ -70,7 +69,7 @@ include '../includes/db.php';
 
                 <div class="box">
                     <h3>Pedido #<?php echo $pedido['id']; ?></h3>
-                    <p><strong>Fecha:</strong> <?php echo $pedido['fecha']; ?></p>
+                    <p><strong>Fecha:</strong> <?php echo $pedido['fecha_pedido']; ?></p>
                     <p><strong>Total (tonkens):</strong> <?php echo $pedido['total_tonkens']; ?></p>
                     <p><strong>Estado:</strong> <?php echo $pedido['estado']; ?></p>
                     <!-- Aquí puedes añadir más detalles del pedido si tienes otra tabla relacionada, como productos -->
@@ -94,9 +93,9 @@ include '../includes/db.php';
 <footer id="footer">
     <div class="container">
         <ul class="icons">
-            <li><a href="#" class="icon fa-facebook"></a></li>
-            <li><a href="#" class="icon fa-twitter"></a></li>
-            <li><a href="#" class="icon fa-instagram"></a></li>
+            <li><a href="#" class="icon fa-facebook" aria-label="Facebook de Tutela La DANA"></a></li>
+            <li><a href="#" class="icon fa-twitter" aria-label="Twitter de Tutela La DANA"></a></li>
+            <li><a href="#" class="icon fa-instagram" aria-label="Instagram de Tutela La DANA"></a></li>
         </ul>
     </div>
 </footer>
@@ -115,4 +114,5 @@ include '../includes/db.php';
 
 </body>
 </html>
+
 

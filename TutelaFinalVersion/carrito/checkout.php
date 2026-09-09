@@ -9,43 +9,51 @@ if (!isset($_SESSION['usuario'])) {
 
 include_once '../includes/db.php';
 include_once '../includes/functions.php';
-include '../includes/header.php'; // Incluye el encabezado
+include_once '../includes/header.php'; // Incluye el encabezado
 
 // Verificar que el carrito no esté vacío
 if (!isset($_SESSION['carrito']) || empty($_SESSION['carrito'])) {
     echo "<div class='container'><p>Tu carrito está vacío.</p></div>";
-    include '../includes/footer.php';
+    include_once '../includes/footer.php';
     exit();
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Procesar el pedido
     $user_id = $_SESSION['usuario']['id'];
     $total = 0;
-    
-    // Calcular el total del pedido
+    $lineas = [];
+
+    $conexion->begin_transaction();
     foreach ($_SESSION['carrito'] as $producto_id => $cantidad) {
-        $stmt = $conexion->prepare("SELECT precio_tonkens FROM productos WHERE id = ?");
+        $stmt = $conexion->prepare("SELECT nombre, precio_tonkens, stock FROM productos WHERE id = ? FOR UPDATE");
         $stmt->bind_param("i", $producto_id);
         $stmt->execute();
         $result = $stmt->get_result();
         if ($row = $result->fetch_assoc()) {
+            if ($cantidad < 1 || $cantidad > (int) $row['stock']) {
+                $conexion->rollback();
+                setFlashMessage("No hay stock suficiente para: " . $row['nombre'], "error");
+                redirigir("index.php");
+            }
             $total += $cantidad * $row['precio_tonkens'];
+            $lineas[] = [$producto_id, $cantidad];
         }
     }
-    
-    // Insertar el pedido en la tabla pedidos con estado 'pendiente'
+
     $stmt = $conexion->prepare("INSERT INTO pedidos (usuario_id, estado, total_tonkens) VALUES (?, 'pendiente', ?)");
     $stmt->bind_param("ii", $user_id, $total);
     
     if ($stmt->execute()) {
         $pedido_id = $conexion->insert_id;
-        // Insertar cada producto del carrito en la tabla pedidos_productos
-        foreach ($_SESSION['carrito'] as $producto_id => $cantidad) {
+        foreach ($lineas as [$producto_id, $cantidad]) {
             $stmt2 = $conexion->prepare("INSERT INTO pedidos_productos (pedido_id, producto_id, cantidad) VALUES (?, ?, ?)");
             $stmt2->bind_param("iii", $pedido_id, $producto_id, $cantidad);
             $stmt2->execute();
+            $stmt3 = $conexion->prepare("UPDATE productos SET stock = stock - ? WHERE id = ?");
+            $stmt3->bind_param("ii", $cantidad, $producto_id);
+            $stmt3->execute();
         }
+        $conexion->commit();
         // Limpiar el carrito
         unset($_SESSION['carrito']);
         setFlashMessage("Pedido realizado con éxito. Total: $total tonkens.");
@@ -90,7 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <section id="main" class="wrapper style1">
         <div class="container 75%">
             <h2>Resumen del Pedido</h2>
-            <table border="1" cellpadding="10" cellspacing="0">
+            <table class="checkout-summary">
                 <thead>
                     <tr>
                         <th>Producto</th>
@@ -134,7 +142,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </section>
 
-    <?php include '../includes/footer.php'; // Incluye el pie de página ?>
+    <?php include_once '../includes/footer.php'; // Incluye el pie de página ?>
 
     <script src="../assets/js/jquery.min.js"></script>
     <script src="../assets/js/skel.min.js"></script>

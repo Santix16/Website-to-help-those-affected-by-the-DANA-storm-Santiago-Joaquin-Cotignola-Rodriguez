@@ -28,7 +28,6 @@ if (!isset($_SESSION['usuario'])) {
       <li><a href="contacto/contacto.php">Contacto</a></li>
       <li><a href="carrito/index.php">Carrito</a></li>
       <li><a href="users/perfil.php">Usuario</a></li>
-      <li><a href="mensajes/inbox.php">Mensaje</a></li>
       <li><a href="pedidos/historial.php">Pedidos</a></li>
       <?php if (isset($_SESSION['usuario'])): ?>
         <li><a href="logout.php">Cerrar sesión</a></li>
@@ -51,43 +50,43 @@ if (!isset($_SESSION['usuario'])) {
       <div class="row uniform 50%">
 
         <div class="4u 12u$(medium)">
-          <span class="image fit"><img src="images/comida_preparada.jpg" alt="Comida preparada" /></span>
+          <span class="image fit"><img src="images/alimentos.jpg" alt="Comida preparada" /></span>
           <h4>Comida preparada (listo para calentar)</h4>
           <a href="formulario_solicitud.php?tipo=comida_preparada" class="button small">Solicitar</a>
         </div>
 
         <div class="4u 12u$(medium)">
-          <span class="image fit"><img src="images/conservas.jpg" alt="Latas de conserva" /></span>
+          <span class="image fit"><img src="images/alimentos.jpg" alt="Latas de conserva" /></span>
           <h4>Latas de conserva (atún, legumbres, sopa)</h4>
           <a href="formulario_solicitud.php?tipo=conservas" class="button small">Solicitar</a>
         </div>
 
         <div class="4u 12u$(medium)">
-          <span class="image fit"><img src="images/pan_galletas.jpg" alt="Pan y galletas" /></span>
+          <span class="image fit"><img src="images/alimentos.jpg" alt="Pan y galletas" /></span>
           <h4>Pan y galletas secas</h4>
           <a href="formulario_solicitud.php?tipo=pan_galletas" class="button small">Solicitar</a>
         </div>
 
         <div class="4u 12u$(medium)">
-          <span class="image fit"><img src="images/leche.jpg" alt="Leche en polvo" /></span>
+          <span class="image fit"><img src="images/alimentos.jpg" alt="Leche en polvo" /></span>
           <h4>Leche en polvo o UHT</h4>
           <a href="formulario_solicitud.php?tipo=leche" class="button small">Solicitar</a>
         </div>
 
         <div class="4u 12u$(medium)">
-          <span class="image fit"><img src="images/agua.jpg" alt="Agua potable" /></span>
+          <span class="image fit"><img src="images/alimentos.jpg" alt="Agua potable" /></span>
           <h4>Agua potable embotellada (1L o 5L)</h4>
           <a href="formulario_solicitud.php?tipo=agua" class="button small">Solicitar</a>
         </div>
 
         <div class="4u 12u$(medium)">
-          <span class="image fit"><img src="images/frutas.jpg" alt="Frutas" /></span>
+          <span class="image fit"><img src="images/alimentos.jpg" alt="Frutas" /></span>
           <h4>Frutas no perecederas</h4>
           <a href="formulario_solicitud.php?tipo=frutas" class="button small">Solicitar</a>
         </div>
 
         <div class="4u 12u$(medium)">
-          <span class="image fit"><img src="images/arroz_pasta.jpg" alt="Arroz y pasta" /></span>
+          <span class="image fit"><img src="images/alimentos.jpg" alt="Arroz y pasta" /></span>
           <h4>Paquetes de arroz y pasta</h4>
           <a href="formulario_solicitud.php?tipo=arroz_pasta" class="button small">Solicitar</a>
         </div>
@@ -97,6 +96,6 @@ if (!isset($_SESSION['usuario'])) {
   </div>
 </section>
 
-<?php include("includes/footer.php"); ?>
+<?php include_once 'includes/footer.php'; ?>
 </body>
 </html>

@@ -14,6 +14,9 @@
 		background: #fff;
 	}
 
+/* End of stylesheet */
+
+
 		body.is-loading *, body.is-loading *:before, body.is-loading *:after {
 			-moz-animation: none !important;
 			-webkit-animation: none !important;
@@ -271,26 +274,23 @@
 	}
 
 		.select-wrapper:before {
-			content: "";
-			-moz-osx-font-smoothing: grayscale;
-			-webkit-font-smoothing: antialiased;
-			font-family: FontAwesome;
-			font-style: normal;
-			font-weight: normal;
-			text-transform: none !important;
-		}
-
-		.select-wrapper:before {
-			color: rgba(144, 144, 144, 0.25);
-			display: block;
-			height: 2.75em;
-			line-height: 2.75em;
-			pointer-events: none;
-			position: absolute;
-			right: 0;
-			text-align: center;
-			top: 0;
-			width: 2.75em;
+    		color: rgba(144, 144, 144, 0.25);
+    		content: "";
+    		-moz-osx-font-smoothing: grayscale;
+    		-webkit-font-smoothing: antialiased;
+    		font-family: FontAwesome, sans-serif;
+    		font-style: normal;
+    		font-weight: normal;
+    		text-transform: none !important;
+   	 		display: block;
+    		height: 2.75em;
+    		line-height: 2.75em;
+    		pointer-events: none;
+    		position: absolute;
+    		right: 0;
+    		text-align: center;
+    		top: 0;
+    		width: 2.75em;
 		}
 
 		.select-wrapper select::-ms-expand {
@@ -340,14 +340,10 @@
 			input[type="radio"] + label:before {
 				-moz-osx-font-smoothing: grayscale;
 				-webkit-font-smoothing: antialiased;
-				font-family: FontAwesome;
+				font-family: FontAwesome, sans-serif;
 				font-style: normal;
 				font-weight: normal;
 				text-transform: none !important;
-			}
-
-			input[type="checkbox"] + label:before,
-			input[type="radio"] + label:before {
 				background: rgba(144, 144, 144, 0.075);
 				border-radius: 4px;
 				border: solid 1px rgba(144, 144, 144, 0.25);
@@ -443,7 +439,7 @@
 		}
 
 		.feature-grid .feature {
-			display: inline-block;
+			display: block;
 			float: left;
 			margin-bottom: 3em;
 			width: 50%;
@@ -485,7 +481,7 @@
 		.icon:before {
 			-moz-osx-font-smoothing: grayscale;
 			-webkit-font-smoothing: antialiased;
-			font-family: FontAwesome;
+			font-family: FontAwesome, sans-serif;
 			font-style: normal;
 			font-weight: normal;
 			text-transform: none !important;
@@ -590,6 +586,7 @@
 			list-style: none;
 			padding-left: 0;
 		}
+
 
 			ul.alt li {
 				border-top: solid 1px rgba(144, 144, 144, 0.25);
@@ -876,7 +873,7 @@
 		input[type="reset"].special,
 		input[type="button"].special,
 		.button.special {
-			background-color: #f32853;
+			background-color: #b9473d;
 			color: #ffffff !important;
 		}
 
@@ -884,7 +881,7 @@
 			input[type="reset"].special:hover,
 			input[type="button"].special:hover,
 			.button.special:hover {
-				background-color: #f44066;
+				background-color: #d56a43;
 			}
 
 			input[type="submit"].special:active,
@@ -911,33 +908,37 @@
 /* Header */
 
 	#skel-layers-wrapper {
-		padding-top: 6em;
+		padding-top: 4.5em !important;
 	}
 
 	body.landing #skel-layers-wrapper {
 		padding-top: 0 !important;
 	}
 
-	#header {
-		background-color: #fff;
-		border-bottom: solid 1px rgba(144, 144, 144, 0.25);
-		box-shadow: 0px 0.0375em 0.125em 0px rgba(0, 0, 0, 0.05);
-		color: #484848;
+	#header,
+	#header.alt {
+		background-color: #1d2d3d !important;
+		border-bottom: solid 1px rgba(255, 255, 255, 0.1);
+		box-shadow: 0px 0.0375em 0.125em 0px rgba(0, 0, 0, 0.15);
+		color: #ffffff !important;
 		cursor: default;
-		font-size: 1.25em;
+		font-size: 1em;
 		height: 4.5em;
 		left: 0;
-		line-height: 4.4em;
-		position: fixed;
+		line-height: 4.5em;
+		position: fixed !important;
 		text-transform: uppercase;
 		top: 0;
 		width: 100%;
 		z-index: 10000;
 	}
 
-		#header h1 {
-			color: #484848;
-			font-weight: 400;
+		#header h1, 
+		#header h1 a,
+		#header.alt h1,
+		#header.alt h1 a {
+			color: #ffffff !important;
+			font-weight: 700;
 			height: inherit;
 			left: 1.25em;
 			line-height: inherit;
@@ -947,7 +948,8 @@
 			top: 0;
 		}
 
-		#header nav {
+		#header nav,
+		#header.alt nav {
 			height: inherit;
 			line-height: inherit;
 			position: absolute;
@@ -956,98 +958,43 @@
 			vertical-align: middle;
 		}
 
-			#header nav > ul {
+			#header nav > ul,
+			#header.alt nav > ul {
 				list-style: none;
 				margin: 0;
 				padding-left: 0;
 			}
 
-				#header nav > ul > li {
+				#header nav > ul > li,
+				#header.alt nav > ul > li {
 					border-radius: 4px;
 					display: inline-block;
-					margin-left: 2.5em;
+					margin-left: 1.5em;
 					padding-left: 0;
 				}
 
-					#header nav > ul > li a {
+					#header nav > ul > li a,
+					#header.alt nav > ul > li a {
 						-moz-transition: color 0.2s ease-in-out;
 						-webkit-transition: color 0.2s ease-in-out;
 						-o-transition: color 0.2s ease-in-out;
 						-ms-transition: color 0.2s ease-in-out;
 						transition: color 0.2s ease-in-out;
-						color: #666;
+						color: #ffffff !important;
 						display: inline-block;
 						text-decoration: none;
+						font-weight: bold;
 					}
 
-						#header nav > ul > li a:hover {
-							color: #484848;
+						#header nav > ul > li a:hover,
+						#header.alt nav > ul > li a:hover {
+							color: #f32853 !important;
 						}
 
-					#header nav > ul > li:first-child {
+					#header nav > ul > li:first-child,
+					#header.alt nav > ul > li:first-child {
 						margin-left: 0;
 					}
-
-					#header nav > ul > li .button {
-						border-color: rgba(144, 144, 144, 0.25);
-						box-shadow: none;
-						height: 3em;
-						line-height: 2.9em;
-						margin-bottom: 0;
-						padding: 0 1.5em;
-						position: relative;
-						top: -0.075em;
-						vertical-align: middle;
-					}
-
-		#header .container {
-			position: relative;
-		}
-
-			#header .container h1 {
-				left: 0;
-			}
-
-			#header .container nav {
-				right: 0;
-			}
-
-		#header.alt {
-			background-color: transparent;
-			border: 0;
-			box-shadow: none;
-			height: 3.25em;
-			line-height: 3.25em;
-			position: absolute;
-		}
-
-			#header.alt h1 {
-				color: #ffffff;
-				left: 2.5em;
-				top: 2em;
-			}
-
-				#header.alt h1 a {
-					color: #ffffff;
-				}
-
-			#header.alt nav {
-				right: 2em;
-				top: 2em;
-			}
-
-				#header.alt nav a {
-					color: #ddd;
-				}
-
-					#header.alt nav a:active, #header.alt nav a:hover {
-						color: #ffffff;
-					}
-
-			#header.alt .button {
-				border-color: rgba(255, 255, 255, 0.5);
-				color: #ffffff !important;
-			}
 
 /* Banner */
 
@@ -1124,7 +1071,7 @@
 	#footer {
 		padding: 8em 0 6em 0;
 		background: #f6f6f6;
-		color: #aaa;
+		color: #4d5660;
 		text-align: center;
 	}
 
@@ -1134,7 +1081,7 @@
 			-o-transition: color 0.2s ease-in-out;
 			-ms-transition: color 0.2s ease-in-out;
 			transition: color 0.2s ease-in-out;
-			color: #aaa;
+			color: #4d5660;
 			text-decoration: none;
 		}
 

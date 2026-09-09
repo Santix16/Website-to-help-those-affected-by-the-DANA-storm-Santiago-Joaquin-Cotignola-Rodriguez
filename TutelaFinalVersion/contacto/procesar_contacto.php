@@ -1,9 +1,9 @@
 <?php
-// Configuración de la base de datos
-$host = "localhost";
-$usuario = "root";       // Ajusta según tu configuración de XAMPP
-$contrasena = "";        // Por defecto, XAMPP usa contraseña vacía para "root"
-$base_datos = "tele_dana";
+// Configuración compartida con el backend Kotlin.
+$host = getenv('DB_HOST') ?: '127.0.0.1';
+$usuario = getenv('DB_USER') ?: 'root';
+$contrasena = getenv('DB_PASSWORD') ?: '';
+$base_datos = getenv('DB_NAME') ?: 'tele_dana';
 
 // Crear conexión
 $conexion = new mysqli($host, $usuario, $contrasena, $base_datos);
@@ -33,4 +33,3 @@ if ($stmt->execute()) {
 
 $stmt->close();
 $conexion->close();
-?>

@@ -28,7 +28,6 @@ if (!isset($_SESSION['usuario'])) {
       <li><a href="contacto/contacto.php">Contacto</a></li>
       <li><a href="carrito/index.php">Carrito</a></li>
       <li><a href="users/perfil.php">Usuario</a></li>
-      <li><a href="mensajes/inbox.php">Mensaje</a></li>
       <li><a href="pedidos/historial.php">Pedidos</a></li>
       <?php if (isset($_SESSION['usuario'])): ?>
         <li><a href="logout.php">Cerrar sesión</a></li>
@@ -51,19 +50,19 @@ if (!isset($_SESSION['usuario'])) {
       <div class="row uniform 50%">
 
         <div class="4u 12u$(medium)">
-          <span class="image fit"><img src="images/jabon.jpg" alt="Jabón" /></span>
+          <span class="image fit"><img src="images/limpieza.jpg" alt="Jabón" /></span>
           <h4>Jabón y champú</h4>
           <a href="formulario_solicitud.php?tipo=jabon" class="button small">Solicitar</a>
         </div>
 
         <div class="4u 12u$(medium)">
-          <span class="image fit"><img src="images/papel_higienico.jpg" alt="Papel Higiénico" /></span>
+          <span class="image fit"><img src="images/limpieza.jpg" alt="Papel Higiénico" /></span>
           <h4>Papel higiénico</h4>
           <a href="formulario_solicitud.php?tipo=papel" class="button small">Solicitar</a>
         </div>
 
         <div class="4u 12u$(medium)">
-          <span class="image fit"><img src="images/detergente.jpg" alt="Detergente" /></span>
+          <span class="image fit"><img src="images/limpieza.jpg" alt="Detergente" /></span>
           <h4>Detergente y limpiadores</h4>
           <a href="formulario_solicitud.php?tipo=detergente" class="button small">Solicitar</a>
         </div>
@@ -73,6 +72,6 @@ if (!isset($_SESSION['usuario'])) {
   </div>
 </section>
 
-<?php include("includes/footer.php"); ?>
+<?php include_once 'includes/footer.php'; ?>
 </body>
 </html>

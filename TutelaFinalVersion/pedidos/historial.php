@@ -7,14 +7,14 @@ if (!isset($_SESSION['usuario'])) {
     exit();
 }
 
-include("../includes/db.php");
+include_once '../includes/db.php';
 
 // Obtener el ID del usuario actual
 $id_usuario = $_SESSION['usuario']['id'];
 
 try {
     // Obtener los pedidos del usuario
-    $stmt = $conexion->prepare("SELECT * FROM pedidos WHERE id_cliente = :id_usuario ORDER BY fecha_pedido DESC");
+    $stmt = $conexion->prepare("SELECT * FROM pedidos WHERE usuario_id = :id_usuario ORDER BY fecha_pedido DESC");
     $stmt->bindParam(':id_usuario', $id_usuario);
     $stmt->execute();
     $pedidos = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -43,7 +43,6 @@ try {
       <li><a href="../contacto/contacto.php">Contacto</a></li>
       <li><a href="../carrito/index.php">Carrito</a></li>
       <li><a href="../users/perfil.php">Usuario</a></li>
-      <li><a href="../mensajes/inbox.php">Mensaje</a></li>
       <li><a href="historial.php">Pedidos</a></li>
       <?php if (isset($_SESSION['usuario'])): ?>
         <li><a href="../logout.php">Cerrar sesión</a></li>
@@ -62,7 +61,7 @@ try {
     <p><a href="../servicios.php" class="btn">Añadir un nuevo pedido</a></p>
 
     <?php if (count($pedidos) > 0): ?>
-        <table border="1" cellpadding="10" cellspacing="0">
+        <table class="orders-history">
             <thead>
                 <tr>
                     <th>ID Pedido</th>
@@ -75,11 +74,11 @@ try {
             <tbody>
                 <?php foreach ($pedidos as $pedido): ?>
                     <tr>
-                        <td><?php echo $pedido['id_pedido']; ?></td>
+                        <td><?php echo $pedido['id']; ?></td>
                         <td><?php echo $pedido['fecha_pedido']; ?></td>
                         <td><?php echo $pedido['total_tonkens']; ?></td>
                         <td><?php echo $pedido['estado']; ?></td>
-                        <td><a href="pedido.php?id=<?php echo $pedido['id_pedido']; ?>">Ver Detalles</a></td>
+                        <td><a href="pedido.php?id=<?php echo $pedido['id']; ?>">Ver Detalles</a></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -89,7 +88,7 @@ try {
     <?php endif; ?>
 </div>
 
-<?php include("../includes/footer.php"); ?>
+<?php include_once '../includes/footer.php'; ?>
 </body>
 </html>
 

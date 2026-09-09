@@ -20,7 +20,6 @@
       <li><a href="contacto/contacto.php">Contacto</a></li>
       <li><a href="carrito/index.php">Carrito</a></li>
       <li><a href="users/perfil.php">Usuario</a></li>
-      <li><a href="mensajes/inbox.php">Mensaje</a></li>
       <li><a href="pedidos/historial.php">Pedidos</a></li>
       <?php if (isset($_SESSION['usuario'])): ?>
         <li><a href="logout.php">Cerrar sesión</a></li>
@@ -31,7 +30,6 @@
   </nav>
 </header>
 
-  
 
 <!-- Sección principal -->
 <section id="main" class="wrapper style1">
@@ -43,20 +41,20 @@
 
     <div class="content">
       <p>
-        En <strong>TELE-DANA</strong>, creemos firmemente en el poder de la solidaridad y el compromiso ciudadano. 
-        Somos una iniciativa creada para brindar <strong>apoyo directo y coordinado a las personas afectadas por la DANA</strong>, 
+        En <strong>TELE-DANA</strong>, creemos firmemente en el poder de la solidaridad y el compromiso ciudadano.
+        Somos una iniciativa creada para brindar <strong>apoyo directo y coordinado a las personas afectadas por la DANA</strong>,
         facilitando recursos, orientación y asistencia en momentos de urgencia y recuperación.
       </p>
 
       <p>
-        Nuestro equipo está conformado por profesionales, voluntarios y ciudadanos comprometidos, que trabajan en red para ofrecer 
-        <em>acompañamiento emocional, orientación legal y social, coordinación de donaciones y recursos, así como apoyo psicológico básico</em>. 
+        Nuestro equipo está conformado por profesionales, voluntarios y ciudadanos comprometidos, que trabajan en red para ofrecer
+        <em>acompañamiento emocional, orientación legal y social, coordinación de donaciones y recursos, así como apoyo psicológico básico</em>.
         Nuestra misión es que cada persona afectada por la DANA sienta que no está sola.
       </p>
 
       <h3>Nuestra Misión</h3>
       <p>
-        Proporcionar un canal accesible y humano de ayuda a quienes más lo necesitan, actuando con transparencia, empatía y eficacia. 
+        Proporcionar un canal accesible y humano de ayuda a quienes más lo necesitan, actuando con transparencia, empatía y eficacia.
         En TELE-DANA, no solo damos asistencia: construimos comunidad.
       </p>
     </div>
@@ -64,7 +62,7 @@
 </section>
 
 <!-- Footer -->
-<footer id="footer" style="
+<footer id="footer-legal" style="
     position: fixed;
     bottom: 0;
     width: 100%;
@@ -86,9 +84,9 @@
 <footer id="footer">
   <div class="container">
     <ul class="icons">
-      <li><a href="#" class="icon fa-facebook"></a></li>
-      <li><a href="#" class="icon fa-twitter"></a></li>
-      <li><a href="#" class="icon fa-instagram"></a></li>
+      <li><a href="#" class="icon fa-facebook" aria-label="Facebook de Tutela La DANA"></a></li>
+      <li><a href="#" class="icon fa-twitter" aria-label="Twitter de Tutela La DANA"></a></li>
+      <li><a href="#" class="icon fa-instagram" aria-label="Instagram de Tutela La DANA"></a></li>
     </ul>
 
     <section id="proteccion-datos" style="margin-top: 2em;">

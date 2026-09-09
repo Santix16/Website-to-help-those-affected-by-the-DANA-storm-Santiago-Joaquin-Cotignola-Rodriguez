@@ -2,7 +2,7 @@
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    include("includes/db.php");
+  include_once 'includes/db.php';
 
     $nombre = $_POST['nombre'];
     $email = $_POST['email'];
@@ -21,8 +21,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         } else {
             // Insertar usuario nuevo
             $stmt = $conexion->prepare("
-                INSERT INTO usuarios (nombre, email, contraseña, tonkens, fecha_registro)
-                VALUES (:nombre, :email, :password, '', NOW())
+                INSERT INTO usuarios (nombre, email, password, role, tonkens, fecha_registro)
+                VALUES (:nombre, :email, :password, 'USER', 0, NOW())
             ");
             $stmt->execute([
                 ':nombre' => $nombre,
@@ -62,7 +62,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       <li><a href="contacto/contacto.php">Contacto</a></li>
       <li><a href="carrito/index.php">Carrito</a></li>
       <li><a href="users/perfil.php">Usuario</a></li>
-      <li><a href="mensajes/inbox.php">Mensaje</a></li>
       <li><a href="pedidos/historial.php">Pedidos</a></li>
       <?php if (isset($_SESSION['usuario'])): ?>
         <li><a href="logout.php">Cerrar sesión</a></li>
@@ -88,13 +87,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       <form method="POST" action="register.php" class="alt">
         <div class="row uniform 50%">
           <div class="12u$">
-            <input type="text" name="nombre" placeholder="Nombre completo" required />
+            <label for="nombre">Nombre completo</label>
+            <input id="nombre" type="text" name="nombre" placeholder="Nombre completo" required />
           </div>
           <div class="12u$">
-            <input type="email" name="email" placeholder="Correo electrónico" required />
+            <label for="email">Correo electrónico</label>
+            <input id="email" type="email" name="email" placeholder="Correo electrónico" required />
           </div>
           <div class="12u$">
-            <input type="password" name="password" placeholder="Contraseña" required />
+            <label for="password">Contraseña</label>
+            <input id="password" type="password" name="password" placeholder="Contraseña" required />
           </div>
           <div class="12u$">
             <ul class="actions">

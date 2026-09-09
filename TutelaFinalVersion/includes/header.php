@@ -1,5 +1,7 @@
 <?php
-if (session_status() == PHP_SESSION_NONE) session_start();
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -8,7 +10,7 @@ if (session_status() == PHP_SESSION_NONE) session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tutela La Dana</title>
     <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/font-awesome.min.css">
 </head>
 <body class="landing">
 <!-- Header -->
@@ -20,10 +22,10 @@ if (session_status() == PHP_SESSION_NONE) session_start();
       <li><a href="../servicios.php">Servicios</a></li>
       <li><a href="../quienes_somos.php">Quiénes Somos</a></li>
       <li><a href="../contacto/contacto.php">Contacto</a></li>
-      <li><a href="../carrito/index.php">Carrito</a></li>  
+      <li><a href="../carrito/index.php">Carrito</a></li>
       <li><a href="../users/perfil.php">Usuario</a></li>
-      <li><a href="../mensajes/inbox.php">Mensaje</a></li>
       <li><a href="../pedidos/historial.php">Pedidos</a></li>
+      <?php if (($_SESSION['usuario']['role'] ?? 'USER') === 'ADMIN'): ?><li><a href="../admin/index.php">Administracion</a></li><?php endif; ?>
       <?php if (isset($_SESSION['usuario'])): ?>
         <li><a href="../logout.php">Cerrar sesión</a></li>
       <?php else: ?>

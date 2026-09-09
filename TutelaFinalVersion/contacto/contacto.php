@@ -1,5 +1,7 @@
 <?php
-if (session_status() == PHP_SESSION_NONE) session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 ?>
 <!DOCTYPE HTML>
 <html lang="es">
@@ -8,7 +10,7 @@ if (session_status() == PHP_SESSION_NONE) session_start();
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="../assets/css/main.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="../css/font-awesome.min.css" />
 </head>
 <body class="landing">
 
@@ -22,7 +24,6 @@ if (session_status() == PHP_SESSION_NONE) session_start();
       <li><a href="contacto.php">Contacto</a></li> <!-- Ya estás dentro -->
       <li><a href="../carrito/index.php">Carrito</a></li>
       <li><a href="../users/perfil.php">Usuario</a></li>
-      <li><a href="../mensajes/inbox.php">Mensaje</a></li>
       <li><a href="../pedidos/historial.php">Pedidos</a></li>
       <?php if (isset($_SESSION['usuario'])): ?>
         <li><a href="../logout.php">Cerrar sesión</a></li>
@@ -50,12 +51,15 @@ if (session_status() == PHP_SESSION_NONE) session_start();
                 <form method="post" action="">
                     <div class="row uniform 50%">
                         <div class="6u 12u$(xsmall)">
+                            <label for="name">Nombre</label>
                             <input type="text" name="name" id="name" placeholder="Nombre" required />
                         </div>
                         <div class="6u$ 12u$(xsmall)">
+                            <label for="email">Email</label>
                             <input type="email" name="email" id="email" placeholder="Email" required />
                         </div>
                         <div class="12u$">
+                            <label for="message">Mensaje</label>
                             <textarea name="message" id="message" placeholder="Escribe tu mensaje aquí..." rows="6" required></textarea>
                         </div>
                         <div class="12u$">
@@ -85,9 +89,9 @@ if (session_status() == PHP_SESSION_NONE) session_start();
 <footer id="footer">
     <div class="container">
         <ul class="icons">
-            <li><a href="#" class="icon fa-facebook"></a></li>
-            <li><a href="#" class="icon fa-twitter"></a></li>
-            <li><a href="#" class="icon fa-instagram"></a></li>
+            <li><a href="#" class="icon fa-facebook" aria-label="Facebook de Tutela La DANA"></a></li>
+            <li><a href="#" class="icon fa-twitter" aria-label="Twitter de Tutela La DANA"></a></li>
+            <li><a href="#" class="icon fa-instagram" aria-label="Instagram de Tutela La DANA"></a></li>
         </ul>
     </div>
 </footer>

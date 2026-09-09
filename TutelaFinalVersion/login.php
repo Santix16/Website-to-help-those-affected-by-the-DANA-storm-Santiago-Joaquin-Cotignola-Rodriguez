@@ -2,7 +2,7 @@
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    include("includes/db.php");
+  include_once 'includes/db.php';
 
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -11,16 +11,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $stmt->bindParam(':email', $email);
     $stmt->execute();
 
-    if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        if (password_verify($password, $row['contraseña'])) {
+    if (($row = $stmt->fetch(PDO::FETCH_ASSOC)) && password_verify($password, $row['password'])) {
             $_SESSION['usuario'] = [
                 'id' => $row['id_usuario'],
                 'email' => $row['email'],
-                'nombre' => $row['nombre']
+                'nombre' => $row['nombre'],
+                'role' => $row['role'] ?? 'USER'
             ];
             header("Location: index.php");
             exit();
-        }
     }
 
     // Falló
@@ -51,7 +50,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       <li><a href="contacto/contacto.php">Contacto</a></li>
       <li><a href="carrito/index.php">Carrito</a></li>
       <li><a href="users/perfil.php">Usuario</a></li>
-      <li><a href="mensajes/inbox.php">Mensaje</a></li>
       <li><a href="pedidos/historial.php">Pedidos</a></li>
       <?php if (isset($_SESSION['usuario'])): ?>
         <li><a href="logout.php">Cerrar sesión</a></li>
@@ -77,10 +75,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       <form method="POST" action="login.php" class="alt">
         <div class="row uniform 50%">
           <div class="12u$">
-            <input type="email" name="email" placeholder="Correo Electrónico" required />
+            <label for="email">Correo electrónico</label>
+            <input id="email" type="email" name="email" placeholder="Correo Electrónico" required />
           </div>
           <div class="12u$">
-            <input type="password" name="password" placeholder="Contraseña" required />
+            <label for="password">Contraseña</label>
+            <input id="password" type="password" name="password" placeholder="Contraseña" required />
           </div>
           <div class="12u$">
             <ul class="actions">
