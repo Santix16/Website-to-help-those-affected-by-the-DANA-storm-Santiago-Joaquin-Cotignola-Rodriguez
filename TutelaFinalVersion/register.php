@@ -21,8 +21,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         } else {
             // Insertar usuario nuevo
             $stmt = $conexion->prepare("
-                INSERT INTO usuarios (nombre, email, password, role, tonkens, fecha_registro)
-                VALUES (:nombre, :email, :password, 'USER', 0, NOW())
+                INSERT INTO usuarios (nombre, email, password, role, fecha_registro)
+                VALUES (:nombre, :email, :password, 'USER', NOW())
             ");
             $stmt->execute([
                 ':nombre' => $nombre,
@@ -51,26 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 <body class="landing">
 
-<!-- Header dinámico -->
-<header id="header" class="alt">
-  <h1><strong><a href="index.php">Tutela La DANA</a></strong></h1>
-  <nav id="nav">
-    <ul>
-      <li><a href="index.php">Inicio</a></li>
-      <li><a href="servicios.php">Servicios</a></li>
-      <li><a href="quienes_somos.html">Quiénes Somos</a></li>
-      <li><a href="contacto/contacto.php">Contacto</a></li>
-      <li><a href="carrito/index.php">Carrito</a></li>
-      <li><a href="users/perfil.php">Usuario</a></li>
-      <li><a href="pedidos/historial.php">Pedidos</a></li>
-      <?php if (isset($_SESSION['usuario'])): ?>
-        <li><a href="logout.php">Cerrar sesión</a></li>
-      <?php else: ?>
-        <li><a href="login.php">Login</a></li>
-      <?php endif; ?>
-    </ul>
-  </nav>
-</header>
+<?php include_once 'includes/header.php'; ?>
 
 <!-- Sección principal -->
 <section id="main" class="wrapper style1" style="padding: 6em 0; display: flex; justify-content: center; align-items: center; min-height: 80vh;">

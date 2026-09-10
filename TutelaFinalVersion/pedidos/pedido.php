@@ -1,39 +1,50 @@
 <?php
 session_start();
-include_once '../includes/db.php';
-?>
 
-<!DOCTYPE HTML>
+if (!isset($_SESSION['usuario'])) {
+    header("Location: ../login.php");
+    exit();
+}
+
+require_once __DIR__ . '/../includes/db.php';
+
+$id_pedido = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+
+if (!$id_pedido) {
+    header("Location: historial.php");
+    exit();
+}
+
+$id_usuario = $_SESSION['usuario']['id'] ?? $_SESSION['usuario']['id_usuario'];
+
+try {
+    // Consulta con PDO para obtener los datos del pedido
+    $stmt = $conexion->prepare("SELECT * FROM pedidos WHERE id = :id_pedido AND usuario_id = :id_usuario");
+    $stmt->execute([
+        ':id_pedido' => $id_pedido,
+        ':id_usuario' => $id_usuario
+    ]);
+    $pedido = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$pedido) {
+        header("Location: historial.php");
+        exit();
+    }
+} catch (PDOException $e) {
+    die("Error en la base de datos: " . $e->getMessage());
+}
+?>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>Detalle del Pedido - Tutela la DANA</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="../assets/css/main.css" />
+    <meta charset="UTF-8">
+    <title>Detalle del Pedido #<?= (int)$pedido['id'] ?></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/main.css">
 </head>
 <body class="landing">
 
-<header id="header" class="alt">
-  <h1><strong><a href="../index.php">Tutela La DANA</a></strong></h1>
-  <nav id="nav">
-    <ul>
-      <li><a href="../index.php">Inicio</a></li>
-      <li><a href="../servicios.php">Servicios</a></li>
-      <li><a href="../quienes_somos.html">Quiénes Somos</a></li>
-      <li><a href="../contacto/contacto.php">Contacto</a></li>
-      <li><a href="../carrito/index.php">Carrito</a></li>
-      <li><a href="../users/perfil.php">Usuario</a></li>
-      <li><a href="historial.php">Pedidos</a></li> <!-- Ya estás en pedidos/ -->
-      <?php if (isset($_SESSION['usuario'])): ?>
-        <li><a href="../logout.php">Cerrar sesión</a></li>
-      <?php else: ?>
-        <li><a href="../login.html">Login</a></li>
-      <?php endif; ?>
-    </ul>
-  </nav>
-</header>
-
-<a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+<?php include_once __DIR__ . '/../includes/header.php'; ?>
 
 <!-- Banner -->
 <section id="banner">
@@ -41,72 +52,23 @@ include_once '../includes/db.php';
     <p>Consulta el estado de tu pedido</p>
 </section>
 
-<!-- Contenido principal -->
+<!-- Contenido -->
 <section id="one" class="wrapper style1">
     <div class="container">
+        <div class="box">
+            <h3>Pedido #<?= (int)$pedido['id'] ?></h3>
+            <p><strong>Fecha de solicitud:</strong> <?= htmlspecialchars($pedido['fecha_pedido'] ?? $pedido['fecha'] ?? '', ENT_QUOTES, 'UTF-8') ?></p>
+            <p><strong>Estado del pedido:</strong> <?= htmlspecialchars($pedido['estado'], ENT_QUOTES, 'UTF-8') ?></p>
 
-        <?php if (!isset($_SESSION['usuario'])): ?>
-            <p style="text-align:center; font-size: 1.2em; color: #c00;">
-                Debes <a href="../login.html">iniciar sesión</a> para ver tus pedidos.
-            </p>
-        <?php elseif (!isset($_GET['id']) || !is_numeric($_GET['id'])): ?>
-            <p style="text-align:center; font-size: 1.2em; color: #c00;">
-                Pedido no especificado o no válido.
-            </p>
-        <?php else: ?>
-            <?php
-            $pedido_id = intval($_GET['id']);
-            $usuario_id = $_SESSION['usuario']['id'];
-
-            $query = $conexion->prepare("SELECT * FROM pedidos WHERE id = ? AND usuario_id = ?");
-            $query->bind_param("ii", $pedido_id, $usuario_id);
-            $query->execute();
-            $result = $query->get_result();
-
-            if ($result && $result->num_rows === 1):
-                $pedido = $result->fetch_assoc();
-            ?>
-
-                <div class="box">
-                    <h3>Pedido #<?php echo $pedido['id']; ?></h3>
-                    <p><strong>Fecha:</strong> <?php echo $pedido['fecha_pedido']; ?></p>
-                    <p><strong>Total (tonkens):</strong> <?php echo $pedido['total_tonkens']; ?></p>
-                    <p><strong>Estado:</strong> <?php echo $pedido['estado']; ?></p>
-                    <!-- Aquí puedes añadir más detalles del pedido si tienes otra tabla relacionada, como productos -->
-                </div>
-
-            <?php else: ?>
-                <p style="text-align:center; font-size: 1.2em; color: #c00;">
-                    No se encontró el pedido o no tienes permiso para verlo.
-                </p>
-            <?php endif; ?>
-        <?php endif; ?>
-
-        <ul class="actions" style="text-align:center; margin-top: 30px;">
-            <li><a href="historial.php" class="button">Volver al Historial</a></li>
-        </ul>
-
+            <ul class="actions" style="margin-top: 2em;">
+                <li><a href="historial.php" class="button alt">Volver al Historial</a></li>
+            </ul>
+        </div>
     </div>
 </section>
 
-<!-- Footer -->
-<footer id="footer">
-    <div class="container">
-        <ul class="icons">
-            <li><a href="#" class="icon fa-facebook" aria-label="Facebook de Tutela La DANA"></a></li>
-            <li><a href="#" class="icon fa-twitter" aria-label="Twitter de Tutela La DANA"></a></li>
-            <li><a href="#" class="icon fa-instagram" aria-label="Instagram de Tutela La DANA"></a></li>
-        </ul>
-    </div>
-</footer>
+<?php include_once __DIR__ . '/../includes/footer.php'; ?>
 
-<div class="copyright">
-    © 2025 Tutela la DANA. Todos los derechos reservados. |
-    <a href="../legal/legal.html">Términos de Uso</a> |
-    <a href="../legal/privacidad.html">Protección de Datos</a>
-</div>
-
-<!-- Scripts -->
 <script src="../assets/js/jquery.min.js"></script>
 <script src="../assets/js/skel.min.js"></script>
 <script src="../assets/js/util.js"></script>
@@ -114,5 +76,3 @@ include_once '../includes/db.php';
 
 </body>
 </html>
-
-

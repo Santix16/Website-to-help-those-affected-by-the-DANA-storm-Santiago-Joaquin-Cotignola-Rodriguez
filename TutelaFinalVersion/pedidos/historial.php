@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once __DIR__ . '/../includes/db.php';
 
 // Verificar sesión
 if (!isset($_SESSION['usuario'])) {
@@ -7,10 +8,8 @@ if (!isset($_SESSION['usuario'])) {
     exit();
 }
 
-include_once '../includes/db.php';
-
 // Obtener el ID del usuario actual
-$id_usuario = $_SESSION['usuario']['id'];
+$id_usuario = $_SESSION['usuario']['id'] ?? $_SESSION['usuario']['id_usuario'];
 
 try {
     // Obtener los pedidos del usuario
@@ -22,7 +21,6 @@ try {
     die("Error al obtener pedidos: " . $e->getMessage());
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -30,66 +28,47 @@ try {
   <title>Historial de Pedidos</title>
   <link rel="stylesheet" href="../assets/css/main.css">
 </head>
-<body>
+<body class="landing">
 
-<!-- Header -->
-<header id="header" class="alt">
-  <h1><strong><a href="../index.php">Tutela La DANA</a></strong></h1>
-  <nav id="nav">
-    <ul>
-      <li><a href="../index.php">Inicio</a></li>
-      <li><a href="../servicios.php">Servicios</a></li>
-      <li><a href="../quienes_somos.php">Quiénes Somos</a></li>
-      <li><a href="../contacto/contacto.php">Contacto</a></li>
-      <li><a href="../carrito/index.php">Carrito</a></li>
-      <li><a href="../users/perfil.php">Usuario</a></li>
-      <li><a href="historial.php">Pedidos</a></li>
-      <?php if (isset($_SESSION['usuario'])): ?>
-        <li><a href="../logout.php">Cerrar sesión</a></li>
-      <?php else: ?>
-        <li><a href="../login.php">Login</a></li>
-      <?php endif; ?>
-    </ul>
-  </nav>
-</header>
+<?php include_once __DIR__ . '/../includes/header.php'; ?>
 
 <!-- Contenido -->
-<div class="container" style="padding: 2em;">
-    <h1>Historial de Pedidos</h1>
+<section class="wrapper style1">
+  <div class="container" style="padding: 2em;">
+      <h1>Historial de Pedidos</h1>
 
-    <!-- Enlace para añadir nuevo pedido -->
-    <p><a href="../servicios.php" class="btn">Añadir un nuevo pedido</a></p>
+      <!-- Enlace para añadir nuevo pedido -->
+      <p><a href="../servicios.php" class="button">Añadir un nuevo pedido</a></p>
 
-    <?php if (count($pedidos) > 0): ?>
-        <table class="orders-history">
-            <thead>
-                <tr>
-                    <th>ID Pedido</th>
-                    <th>Fecha</th>
-                    <th>Total Tónkens</th>
-                    <th>Estado</th>
-                    <th>Ver</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($pedidos as $pedido): ?>
-                    <tr>
-                        <td><?php echo $pedido['id']; ?></td>
-                        <td><?php echo $pedido['fecha_pedido']; ?></td>
-                        <td><?php echo $pedido['total_tonkens']; ?></td>
-                        <td><?php echo $pedido['estado']; ?></td>
-                        <td><a href="pedido.php?id=<?php echo $pedido['id']; ?>">Ver Detalles</a></td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    <?php else: ?>
-        <p>No tienes pedidos registrados.</p>
-    <?php endif; ?>
-</div>
+      <?php if (count($pedidos) > 0): ?>
+          <div class="table-wrapper">
+              <table class="orders-history">
+                  <thead>
+                      <tr>
+                          <th>ID Pedido</th>
+                          <th>Fecha</th>
+                          <th>Estado</th>
+                          <th>Acciones</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <?php foreach ($pedidos as $pedido): ?>
+                          <tr>
+                              <td><?php echo (int)$pedido['id']; ?></td>
+                              <td><?php echo htmlspecialchars($pedido['fecha_pedido'], ENT_QUOTES, 'UTF-8'); ?></td>
+                              <td><?php echo htmlspecialchars($pedido['estado'], ENT_QUOTES, 'UTF-8'); ?></td>
+                              <td><a href="pedido.php?id=<?php echo (int)$pedido['id']; ?>" class="button small">Ver Detalles</a></td>
+                          </tr>
+                      <?php endforeach; ?>
+                  </tbody>
+              </table>
+          </div>
+      <?php else: ?>
+          <p>No tienes pedidos registrados.</p>
+      <?php endif; ?>
+  </div>
+</section>
 
-<?php include_once '../includes/footer.php'; ?>
+<?php include_once __DIR__ . '/../includes/footer.php'; ?>
 </body>
 </html>
-
-

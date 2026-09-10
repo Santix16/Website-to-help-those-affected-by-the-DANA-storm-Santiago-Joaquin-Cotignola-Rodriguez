@@ -1,14 +1,17 @@
 <?php
 session_start();
+
 if (!isset($_SESSION['usuario'])) {
     header('Location: ../login.php');
     exit();
 }
 
 require_once __DIR__ . '/../includes/db.php';
-$id = (int) $_SESSION['usuario']['id'];
+
+$id = (int) ($_SESSION['usuario']['id_usuario'] ?? $_SESSION['usuario']['id'] ?? 0);
 $nombre = trim($_POST['nombre'] ?? '');
 $email = trim($_POST['email'] ?? '');
+$telefono = trim($_POST['telefono'] ?? '');
 $password = (string) ($_POST['password'] ?? '');
 
 if ($nombre === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -22,16 +25,32 @@ try {
     }
 
     $conexion->beginTransaction();
+
     if ($password !== '') {
-        $stmt = $conexion->prepare('UPDATE usuarios SET nombre = :nombre, email = :email, password = :password WHERE id_usuario = :id');
-        $stmt->execute([':nombre' => $nombre, ':email' => $email, ':password' => password_hash($password, PASSWORD_DEFAULT), ':id' => $id]);
+        $stmt = $conexion->prepare('UPDATE usuarios SET nombre = :nombre, email = :email, telefono = :telefono, password = :password WHERE id_usuario = :id');
+        $stmt->execute([
+            ':nombre' => $nombre,
+            ':email' => $email,
+            ':telefono' => $telefono,
+            ':password' => password_hash($password, PASSWORD_DEFAULT),
+            ':id' => $id
+        ]);
     } else {
-        $stmt = $conexion->prepare('UPDATE usuarios SET nombre = :nombre, email = :email WHERE id_usuario = :id');
-        $stmt->execute([':nombre' => $nombre, ':email' => $email, ':id' => $id]);
+        $stmt = $conexion->prepare('UPDATE usuarios SET nombre = :nombre, email = :email, telefono = :telefono WHERE id_usuario = :id');
+        $stmt->execute([
+            ':nombre' => $nombre,
+            ':email' => $email,
+            ':telefono' => $telefono,
+            ':id' => $id
+        ]);
     }
+
     $conexion->commit();
+
     $_SESSION['usuario']['nombre'] = $nombre;
     $_SESSION['usuario']['email'] = $email;
+    $_SESSION['usuario']['telefono'] = $telefono;
+
     header('Location: perfil_privado.php?actualizado=1');
     exit();
 } catch (Throwable $exception) {
@@ -41,4 +60,3 @@ try {
     header('Location: perfil_privado.php?error=' . urlencode($exception->getMessage()));
     exit();
 }
-

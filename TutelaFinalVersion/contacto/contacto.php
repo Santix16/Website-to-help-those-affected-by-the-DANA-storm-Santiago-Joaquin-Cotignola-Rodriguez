@@ -1,6 +1,36 @@
 <?php
-if (session_status() == PHP_SESSION_NONE) {
+if (session_status() === PHP_SESSION_NONE) {
     session_start();
+}
+
+require_once __DIR__ . '/../includes/db.php';
+
+$mensaje_exito = null;
+$error = null;
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $nombre = trim($_POST["name"] ?? '');
+    $email = trim($_POST["email"] ?? '');
+    $mensaje = trim($_POST["message"] ?? '');
+
+    if (!empty($nombre) && !empty($email) && !empty($mensaje)) {
+        try {
+            $stmt = $conexion->prepare(
+                "INSERT INTO contacto (nombre, email, mensaje) 
+                 VALUES (:nombre, :email, :mensaje)"
+            );
+            $stmt->execute([
+                ':nombre'  => $nombre,
+                ':email'   => $email,
+                ':mensaje' => $mensaje
+            ]);
+            $mensaje_exito = "Gracias, <strong>" . htmlspecialchars($nombre, ENT_QUOTES, 'UTF-8') . "</strong>. Hemos recibido tu mensaje.";
+        } catch (Throwable $e) {
+            $error = "No se pudo enviar el mensaje. Inténtalo de nuevo más tarde.";
+        }
+    } else {
+        $error = "Por favor, rellena todos los campos.";
+    }
 }
 ?>
 <!DOCTYPE HTML>
@@ -9,101 +39,55 @@ if (session_status() == PHP_SESSION_NONE) {
     <title>Contacto - Tutela La DANA</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Ruta adaptada al CSS global desde la subcarpeta -->
     <link rel="stylesheet" href="../assets/css/main.css" />
-    <link rel="stylesheet" href="../css/font-awesome.min.css" />
 </head>
 <body class="landing">
 
-<header id="header" class="alt">
-  <h1><strong><a href="../index.php">Tutela La DANA</a></strong></h1>
-  <nav id="nav">
-    <ul>
-      <li><a href="../index.php">Inicio</a></li>
-      <li><a href="../servicios.php">Servicios</a></li>
-      <li><a href="../quienes_somos.php">Quiénes Somos</a></li>
-      <li><a href="contacto.php">Contacto</a></li> <!-- Ya estás dentro -->
-      <li><a href="../carrito/index.php">Carrito</a></li>
-      <li><a href="../users/perfil.php">Usuario</a></li>
-      <li><a href="../pedidos/historial.php">Pedidos</a></li>
-      <?php if (isset($_SESSION['usuario'])): ?>
-        <li><a href="../logout.php">Cerrar sesión</a></li>
-      <?php else: ?>
-        <li><a href="../login.html">Login</a></li>
-      <?php endif; ?>
-    </ul>
-  </nav>
-</header>
+<?php include_once __DIR__ . '/../includes/header.php'; ?>
 
-
-<a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>
-
-<!-- Banner -->
 <section id="banner">
     <h2>Contacto</h2>
     <p>¿Tienes alguna duda o comentario? ¡Escríbenos!</p>
 </section>
 
-<!-- Formulario -->
 <section id="one" class="wrapper style1">
     <div class="container 75%">
-        <div class="row 200%">
-            <div class="12u">
-                <form method="post" action="">
-                    <div class="row uniform 50%">
-                        <div class="6u 12u$(xsmall)">
-                            <label for="name">Nombre</label>
-                            <input type="text" name="name" id="name" placeholder="Nombre" required />
-                        </div>
-                        <div class="6u$ 12u$(xsmall)">
-                            <label for="email">Email</label>
-                            <input type="email" name="email" id="email" placeholder="Email" required />
-                        </div>
-                        <div class="12u$">
-                            <label for="message">Mensaje</label>
-                            <textarea name="message" id="message" placeholder="Escribe tu mensaje aquí..." rows="6" required></textarea>
-                        </div>
-                        <div class="12u$">
-                            <ul class="actions">
-                                <li><input type="submit" value="Enviar mensaje" class="special" /></li>
-                            </ul>
-                        </div>
-                    </div>
-                </form>
+        <?php if (isset($_SESSION['usuario'])): ?>
+            <p><a href="../contacto/mis_mensajes.php" class="button special small">Ver mis conversaciones</a></p>
+        <?php endif; ?>
 
-                <?php
-                if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                    $name = htmlspecialchars($_POST["name"]);
-                    $email = htmlspecialchars($_POST["email"]);
-                    $message = htmlspecialchars($_POST["message"]);
-
-                    // Aquí puedes enviar un correo si quieres con mail()
-                    echo "<p>Gracias, <strong>$name</strong>. Hemos recibido tu mensaje.</p>";
-                }
-                ?>
+        <form method="post" action="">
+            <div class="row uniform 50%">
+                <div class="6u 12u$(xsmall)">
+                    <label for="name">Nombre</label>
+                    <input type="text" name="name" id="name" value="<?= htmlspecialchars($_SESSION['usuario']['nombre'] ?? '', ENT_QUOTES, 'UTF-8') ?>" required />
+                </div>
+                <div class="6u$ 12u$(xsmall)">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" value="<?= htmlspecialchars($_SESSION['usuario']['email'] ?? '', ENT_QUOTES, 'UTF-8') ?>" required />
+                </div>
+                <div class="12u$">
+                    <label for="message">Mensaje</label>
+                    <textarea name="message" id="message" placeholder="Escribe tu consulta..." rows="6" required></textarea>
+                </div>
+                <div class="12u$">
+                    <ul class="actions">
+                        <li><input type="submit" value="Enviar mensaje" class="special" /></li>
+                    </ul>
+                </div>
             </div>
-        </div>
+        </form>
+
+        <?php if ($mensaje_exito): ?>
+            <p style="color: green; margin-top: 1em;"><?= $mensaje_exito ?></p>
+        <?php endif; ?>
+        <?php if ($error): ?>
+            <p style="color: red; margin-top: 1em;"><?= $error ?></p>
+        <?php endif; ?>
     </div>
 </section>
 
-<!-- Footer -->
-<footer id="footer">
-    <div class="container">
-        <ul class="icons">
-            <li><a href="#" class="icon fa-facebook" aria-label="Facebook de Tutela La DANA"></a></li>
-            <li><a href="#" class="icon fa-twitter" aria-label="Twitter de Tutela La DANA"></a></li>
-            <li><a href="#" class="icon fa-instagram" aria-label="Instagram de Tutela La DANA"></a></li>
-        </ul>
-    </div>
-</footer>
-
-<div class="copyright">
-    © <?php echo date('Y'); ?> Tutela La Dana | Sitio creado con solidaridad
-</div>
-
-<script src="../assets/js/jquery.min.js"></script>
-<script src="../assets/js/skel.min.js"></script>
-<script src="../assets/js/util.js"></script>
-<script src="../assets/js/main.js"></script>
-
+<?php include_once __DIR__ . '/../includes/footer.php'; ?>
 </body>
 </html>

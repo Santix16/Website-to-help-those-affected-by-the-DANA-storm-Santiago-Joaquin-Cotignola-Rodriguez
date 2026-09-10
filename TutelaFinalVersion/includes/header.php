@@ -22,7 +22,6 @@ if (session_status() == PHP_SESSION_NONE) {
       <li><a href="../servicios.php">Servicios</a></li>
       <li><a href="../quienes_somos.php">Quiénes Somos</a></li>
       <li><a href="../contacto/contacto.php">Contacto</a></li>
-      <li><a href="../carrito/index.php">Carrito</a></li>
       <li><a href="../users/perfil.php">Usuario</a></li>
       <li><a href="../pedidos/historial.php">Pedidos</a></li>
       <?php if (($_SESSION['usuario']['role'] ?? 'USER') === 'ADMIN'): ?><li><a href="../admin/index.php">Administracion</a></li><?php endif; ?>

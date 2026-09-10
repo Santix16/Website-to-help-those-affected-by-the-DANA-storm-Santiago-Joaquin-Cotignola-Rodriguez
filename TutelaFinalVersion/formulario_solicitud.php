@@ -23,7 +23,40 @@ $servicios = [
     'detergente' => 'Detergente y limpiadores'
 ];
 
+// Mapeo directo entre la clave 'tipo' de la URL y el nombre exacto guardado en la tabla 'productos'
+$mapaProductosBD = [
+    'comida_preparada' => 'COMIDA PREPARADA (LISTO PARA CALENTAR)',
+    'conservas'        => 'LATAS DE CONSERVA (ATÚN, LEGUMBRES, SOPA)',
+    'pan_galletas'     => 'PAN Y GALLETAS SECAS',
+    'leche'            => 'LECHE EN POLVO O UHT',
+    'agua'             => 'AGUA POTABLE EMBOTELLADA (1L O 5L)',
+    'frutas'           => 'FRUTAS NO PERECEDERAS',
+    'arroz_pasta'      => 'PAQUETES DE ARROZ Y PASTA',
+    'jabon'            => 'JABÓN Y CHAMPÚ',
+    'papel'            => 'PAPEL HIGIÉNICO',
+    'detergente'       => 'DETERGENTE Y LIMPIADORES',
+    'ropa_mujer'       => 'ROPA PARA MUJER',
+    'ropa_hombre'      => 'ROPA PARA HOMBRE',
+    'ropa_nino'        => 'ROPA PARA NIÑOS',
+    'calzado'          => 'CALZADO Y MANTAS'
+];
+
 $tipo = $_GET['tipo'] ?? $_POST['tipo'] ?? '';
+
+// Lógica de detección de página de origen
+$origen = $_GET['origen'] ?? $_POST['origen'] ?? '';
+
+if (empty($origen) && isset($_SERVER['HTTP_REFERER'])) {
+    $refererPath = parse_url($_SERVER['HTTP_REFERER'], PHP_URL_PATH);
+    $origen = basename($refererPath);
+}
+
+// Validar que el origen pertenezca a las páginas permitidas
+$paginasPermitidas = ['servicios_alimentos.php', 'servicios_limpieza.php', 'servicios_ropa.php', 'servicios.php'];
+if (!in_array($origen, $paginasPermitidas, true)) {
+    $origen = 'servicios.php';
+}
+
 $nombreServicio = $servicios[$tipo] ?? null;
 $error = null;
 
@@ -34,18 +67,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         require_once __DIR__ . '/includes/db.php';
 
         try {
-            $usuarioId = (int) ($_SESSION['usuario']['id'] ?? 0);
+            $usuarioId = (int) ($_SESSION['usuario']['id'] ?? $_SESSION['usuario']['id_usuario'] ?? 0);
             if ($usuarioId <= 0) {
-              throw new InvalidArgumentException('La sesión de usuario no es válida.');
+                throw new InvalidArgumentException('La sesión de usuario no es válida.');
             }
 
-            $estado = 'solicitud:' . $tipo;
+            // Obtenemos el nombre exacto registrado en la base de datos
+            $nombreBD = $mapaProductosBD[$tipo] ?? $nombreServicio;
+
+            // Consultar el producto_id real para mantener la integridad referencial
+            $stmtProd = $conexion->prepare('SELECT id, nombre FROM productos WHERE nombre = :nombre LIMIT 1');
+            $stmtProd->execute([':nombre' => $nombreBD]);
+            $productoBD = $stmtProd->fetch(PDO::FETCH_ASSOC);
+
+            $productoId = $productoBD ? (int)$productoBD['id'] : null;
+            $nombreFinalProducto = $productoBD ? $productoBD['nombre'] : $nombreBD;
+
+            // Inserción asignando las columnas 'producto', 'producto_id' y manteniendo el 'estado' limpio
             $stmt = $conexion->prepare(
-                'INSERT INTO pedidos (usuario_id, estado, total_tonkens) VALUES (:usuario_id, :estado, 0)'
+                'INSERT INTO pedidos (usuario_id, producto, producto_id, estado) VALUES (:usuario_id, :producto, :producto_id, :estado)'
             );
             $stmt->execute([
-                ':usuario_id' => $usuarioId,
-                ':estado' => $estado
+                ':usuario_id'  => $usuarioId,
+                ':producto'     => $nombreFinalProducto,
+                ':producto_id'  => $productoId,
+                ':estado'       => 'pendiente'
             ]);
 
             header('Location: pedidos/historial.php?solicitud=1');
@@ -65,18 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body class="landing">
-<header id="header" class="alt">
-  <h1><strong><a href="index.php">Tutela La DANA</a></strong></h1>
-  <nav id="nav">
-    <ul>
-      <li><a href="index.php">Inicio</a></li>
-      <li><a href="servicios.php">Servicios</a></li>
-      <li><a href="carrito/index.php">Carrito</a></li>
-      <li><a href="pedidos/historial.php">Pedidos</a></li>
-      <li><a href="logout.php">Cerrar sesión</a></li>
-    </ul>
-  </nav>
-</header>
+<?php include_once 'includes/header.php'; ?>
 
 <section id="main" class="wrapper style1">
   <div class="container" style="max-width: 700px;">
@@ -91,17 +126,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </header>
 
     <?php if ($nombreServicio !== null && $error === null): ?>
-      <form method="post" action="formulario_solicitud.php?tipo=<?= urlencode($tipo) ?>" class="alt">
+      <form method="post" action="formulario_solicitud.php?tipo=<?= urlencode($tipo) ?>&origen=<?= urlencode($origen) ?>" class="alt">
         <input type="hidden" name="tipo" value="<?= htmlspecialchars($tipo, ENT_QUOTES, 'UTF-8') ?>">
+        <input type="hidden" name="origen" value="<?= htmlspecialchars($origen, ENT_QUOTES, 'UTF-8') ?>">
         <p>Confirma la solicitud para que el equipo pueda gestionarla.</p>
         <ul class="actions">
           <li><button type="submit" class="button special">Confirmar solicitud</button></li>
-          <li><a href="servicios.php" class="button">Cancelar</a></li>
+          <li><a href="<?= htmlspecialchars($origen, ENT_QUOTES, 'UTF-8') ?>" class="button">Cancelar</a></li>
         </ul>
       </form>
     <?php else: ?>
       <p>El servicio solicitado no existe.</p>
-      <a href="servicios.php" class="button">Volver a servicios</a>
+      <a href="<?= htmlspecialchars($origen, ENT_QUOTES, 'UTF-8') ?>" class="button">Volver</a>
     <?php endif; ?>
   </div>
 </section>

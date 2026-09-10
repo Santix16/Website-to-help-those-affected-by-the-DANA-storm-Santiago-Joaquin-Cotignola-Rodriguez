@@ -27,9 +27,13 @@ Backend de la plataforma de ayuda a personas afectadas por la DANA. Esta version
 
 - Java 21 (el proyecto compila con JVM target 21).
 - MySQL 8+ instalado y ejecutandose en `localhost:3306`.
-- MySQL Workbench es opcional y sirve para ejecutar el esquema.
+- MySQL Workbench o phpMyAdmin son opcionales y sirven para ejecutar el esquema.
 
-## Crear la base de datos con MySQL Workbench
+## Crear la base de datos
+
+Puedes crear la base de datos usando **MySQL Workbench** o **phpMyAdmin**, segun lo que tengas instalado.
+
+### Opcion A: MySQL Workbench
 
 1. Abre una conexion a `127.0.0.1`, puerto `3306`, usuario `root` y la contraseña de tu instalacion de MySQL.
 2. Abre `database/database.sql`.
@@ -42,6 +46,26 @@ Tambien puedes ejecutar el script desde el cliente de MySQL:
 SOURCE C:/ruta/absoluta/TutelaDANA-KotlinBackend/database/database.sql;
 ```
 
+### Opcion B: phpMyAdmin (localhost)
+
+Si tienes phpMyAdmin instalado (por ejemplo via XAMPP, WAMP o Laragon), tambien puedes crear la base de datos desde ahi:
+
+0. Si usas **XAMPP**, abre el panel de control de XAMPP y asegurate de que los modulos **Apache** y **MySQL** esten iniciados (en verde/"Running"). phpMyAdmin necesita Apache para servir la pagina y MySQL para conectarse a la base de datos; si alguno de los dos esta detenido, `http://localhost/phpmyadmin` no cargara o dara error de conexion.
+1. Abre `http://localhost/phpmyadmin` en el navegador.
+2. Inicia sesion (por defecto usuario `root` sin contraseña en XAMPP/Laragon, o con la contraseña que hayas configurado).
+3. Ve a la pestaña **Importar** en el menu superior.
+4. En "Archivo a importar", selecciona `database/database.sql` desde tu equipo.
+5. Pulsa **Continuar** para ejecutar el script.
+6. En el panel izquierdo, comprueba que aparece la base `tele_dana` con las tablas `usuarios`, `productos`, `pedidos`, `pedidos_productos`, `contacto` y `mensajes`.
+
+Tambien puedes crear la base manualmente desde la pestaña **SQL**:
+
+1. Crea primero la base de datos con el boton **Nueva** (nombre `tele_dana`).
+2. Selecciona la base recien creada.
+3. Ve a la pestaña **SQL**, pega el contenido de `database/database.sql` y pulsa **Continuar**.
+
+> Nota: si usas XAMPP/Laragon con phpMyAdmin, MySQL normalmente corre en `127.0.0.1:3306` con usuario `root` y sin contraseña, por lo que en la configuracion de variables de entorno deberas dejar `DB_PASSWORD=""`.
+
 ## Configurar y arrancar en Windows
 
 Desde PowerShell, situado en `TutelaDANA-KotlinBackend`:
@@ -53,7 +77,7 @@ $env:DB_PASSWORD="TU_CONTRASENA_MYSQL"
 .\gradlew.bat run
 ```
 
-Si el usuario `root` no tiene contraseña:
+Si el usuario `root` no tiene contraseña (por ejemplo, usando phpMyAdmin con XAMPP/Laragon):
 
 ```powershell
 $env:DB_PASSWORD=""
@@ -124,25 +148,48 @@ Invoke-RestMethod http://localhost:8080/api/products
 .\gradlew.bat run
 ```
 
-## Estructura
+## Estructura del proyecto
 
 ```text
 TutelaDANA-KotlinBackend/
 |-- database/
 |   `-- database.sql
+|-- gradle/
+|   `-- wrapper/
+|       |-- gradle-wrapper.jar
+|       `-- gradle-wrapper.properties
 |-- src/main/kotlin/com/tuteladana/
+|   |-- Application.kt
 |   |-- config/
+|   |   |-- AppConfig.kt
+|   |   `-- DatabaseConfig.kt
 |   |-- controller/
+|   |   |-- AuthController.kt
+|   |   |-- ContactController.kt
+|   |   |-- OrderController.kt
+|   |   |-- ProductController.kt
+|   |   `-- UserController.kt
 |   |-- model/
+|   |   |-- ContactMessage.kt
+|   |   |-- Order.kt
+|   |   |-- Product.kt
+|   |   `-- User.kt
 |   `-- repository/
+|       |-- ContactRepository.kt
+|       |-- OrderRepository.kt
+|       |-- ProductRepository.kt
+|       `-- UserRepository.kt
 |-- .env.example
 |-- build.gradle.kts
+|-- settings.gradle.kts
 |-- docker-compose.yml
 |-- gradlew
 |-- gradlew.bat
 |-- start-local.ps1
 `-- README.md
 ```
+
+> Nota: al compilar y ejecutar el proyecto, Gradle genera ademas las carpetas `build/`, `bin/` y `.gradle/` con clases compiladas y cachés internas. No forman parte del codigo fuente y no deben incluirse en el control de versiones (deberian estar en `.gitignore`).
 
 ## Docker opcional
 

@@ -8,7 +8,6 @@
       <li><a href="servicios.php">Servicios</a></li>
       <li><a href="quienes_somos.php">Quiénes Somos</a></li>
       <li><a href="contacto/contacto.php">Contacto</a></li>
-      <li><a href="carrito/index.php">Carrito</a></li>
       <li><a href="users/perfil.php">Usuario</a></li>
       <li><a href="pedidos/historial.php">Pedidos</a></li>
       <?php if (($_SESSION['usuario']['role'] ?? 'USER') === 'ADMIN'): ?><li><a href="admin/index.php">Administracion</a></li><?php endif; ?>
@@ -44,7 +43,7 @@
     <h2>Bienvenido a Tutela La DANA</h2>
     <p>Unidos para ayudar a los afectados por la DANA</p>
     <ul class="actions">
-      <li><a href="register.php" class="button special big">Únete a la causa</a></li>
+      <a href="donar.php" class="button special big">Únete a la causa</a>
       <li><a href="servicios.php" class="button big">Solicitar ayuda</a></li>
     </ul>
   </div>
